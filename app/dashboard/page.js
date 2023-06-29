@@ -4,7 +4,7 @@ import styles from './page.module.css'
 
 export default function Dashboard() {
 
-  const datosAfiliados = [
+  const mock = [
     { type: 'Activo', amount: 10 },
     { type: 'Adherente', amount: 5 },
     { type: 'Afiliados Titulares', amount: 8 },
@@ -16,7 +16,7 @@ export default function Dashboard() {
     <div className={styles.container}>
       <div className={styles.content}>
         <h3>General</h3>
-        <GeneralTable datos={datosAfiliados}/>
+        <GeneralTable data={mock}/>
       </div>
     </div>
   )

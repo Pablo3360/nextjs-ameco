@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './general-table.module.css'
 
-const GeneralTable = ({ datos }) => {
+const GeneralTable = ({ data }) => {
   return (
     <table className={styles.table}>
       <thead>
@@ -11,7 +11,7 @@ const GeneralTable = ({ datos }) => {
         </tr>
       </thead>
       <tbody>
-        {datos.map((row, index) => (
+        {data.map((row, index) => (
           <tr key={index}>
             <td className={styles.cell}>{row.type}</td>
             <td className={styles.cell}>{row.amount}</td>
