@@ -5,6 +5,12 @@
     background-color: #003dafda;
     /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 }
+.modal{
+  /* z-index: -99!important;; */
+  /* background-color: #007bff; */
+  width: 400px;
+  height: 400px;
+}
 .contain{
     text-align: center;
     align-items: center;
