@@ -1,0 +1,30 @@
+/* .sidebar{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 20%;
+    height: 100vh;
+}
+.sidebar>h4{
+    margin: 10px;
+} */
+
+.sidebar {
+    background-color: #f1f1f1;
+    width: 300px;
+    padding: 20px;
+  }
+  
+  .sidebar>h4 {
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .sidebar>h4:hover {
+    background-color: #ddd;
+  }
