@@ -1,10 +1,10 @@
 
-export default function validate({email, password}){
+export default function validate({mail, password}){
 
-    const regEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const regmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     let error = ''
     switch(true){
-        case !regEmail.test(email):
+        case !regmail.test(mail):
             error = 'Direccion de correo o contraseña inválidos'
             break;
         case password.length <= 0:

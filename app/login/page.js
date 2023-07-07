@@ -2,17 +2,17 @@
 import { useState } from 'react'
 import styles from './page.module.css'
 import validate from './validate'
-// import Modal from 'react-modal'
+import axios from 'axios'
 import Modal from '@/components/modal/Modal'
 import { useRouter } from 'next/navigation'
-
+import { useDispatch,useSelector } from 'react-redux'
+import { setUser } from '@/app/store/userSlice'
 
 export default function Login(){
-
     const { inputContainer, inputField, inputLabel, inputHighlight, contain, loginButton, svg, circle, inputs, second, modal, login } = styles
     const [ load, setLoad ] = useState(false)
     const [ inputValue, setInputValue] = useState({
-        email: '',
+        mail: '',
         password: ''
     })
     const [ error, setError ] = useState('')
@@ -20,8 +20,9 @@ export default function Login(){
     const [ modalLabel, setModalLabel ] = useState('')
     const router  = useRouter()
 
+    const dispatch=useDispatch();
+
     function handlerChange(e){
-        // e.preventDefault()
         setInputValue({
             ...inputValue,
             [ e.target.name ]: e.target.value
@@ -29,26 +30,25 @@ export default function Login(){
     }
 
     function handlerSubmit(){
-        if(inputValue.email === '' | inputValue.password === '') {
+        if(inputValue.mail === '' | inputValue.password === '') {
             setModalLabel('Debe llenar todos los campos')
             setLoginModal(true)
         }
         setError(validate(inputValue))
         if(validate(inputValue) === ''){
             setLoad(true)
-            setTimeout(() => {
+            axios.post(`${process.env.NEXT_PUBLIC_URL_API}/auth/login`,inputValue).then(res=>{
+                dispatch(setUser(res.data.data))
+                console.log('resdatadata :',res.data.data)
                 setLoad(false)
-            }, 3000)
-            router.push('/')
-            // return alert('suseful')
-            
-        }
-        else{
-            setModalLabel(error)
-            setLoginModal(true)
+                router.push('/dashboard')
+            }).catch(err=>{
+                console.log(err)
+                alert(err.message)
+                setLoad(false)
+            })
         }
     }
-
     function closeModal(){
         setLoginModal(false)
     }
@@ -59,7 +59,7 @@ export default function Login(){
             <div className={inputs} onClick={() => setLoad(false)} >
                 { error === "" ? "" : <p style={{color: "red", margin: "10px 0"}} >{error}</p>}
                 <div className={inputContainer}>
-                    <input onChange={handlerChange} name="email" placeholder="Email" className={inputField} type="email" required={true}/>
+                    <input onChange={handlerChange} name="mail" placeholder="mail" className={inputField} type="mail" required={true}/>
                     <label htmlFor="input-field" className={inputLabel}>Enter text</label>
                     <span className={inputHighlight}></span>
                 </div>
@@ -83,9 +83,6 @@ export default function Login(){
                     )
             }
             </div>
-            
-            
-
         </div>
         </div>
     )
