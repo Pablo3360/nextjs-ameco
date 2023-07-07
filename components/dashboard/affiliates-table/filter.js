@@ -17,40 +17,43 @@ export default function Filter({
           : Array.from(column.getFacetedUniqueValues().keys()).sort(),
       [column.getFacetedUniqueValues()]
     );
-  
+    function dateToNumber(fecha) {
+      if (typeof(fecha)==='string'){
+        var partes = fecha.split('-');
+        var fechaObjeto = new Date(partes[0], partes[1] - 1, partes[2]);
+        var numero = fechaObjeto.getTime();
+        return numero;
+      } else return fecha
+  }
     return typeof firstValue === 'number' ? (
       <div>
         <div className="flex space-x-2">
+          <div>
+            <span style={{'fontSize':'10px'}}>Min</span>
+            <DebouncedInput
+              type="date"
+              min={column.getFacetedMinMaxValues()?.[0] ?? ''}
+              max={column.getFacetedMinMaxValues()?.[1] ?? ''}
+              onChange={(value) =>{
+                let dateInNumber=dateToNumber(value)
+                column.setFilterValue((old) => [dateInNumber, old?.[1]])
+              }}
+              className="w-24 border shadow rounded"
+            />
+          </div>
+          <div>
+          <span style={{'fontSize':'10px'}}>max</span>
           <DebouncedInput
-            type="number"
+            type="date"
             min={column.getFacetedMinMaxValues()?.[0] ?? ''}
             max={column.getFacetedMinMaxValues()?.[1] ?? ''}
-            value={(columnFilterValue )?.[0] ?? ''}
-            onChange={(value) =>
-              column.setFilterValue((old) => [value, old?.[1]])
-            }
-            placeholder={`Min ${
-              column.getFacetedMinMaxValues()?.[0]
-                ? `(${column.getFacetedMinMaxValues()?.[0]})`
-                : ''
-            }`}
+            onChange={(value) =>{
+              let dateInNumber=dateToNumber(value)
+              column.setFilterValue((old) => [old?.[0], dateInNumber])
+            }}
             className="w-24 border shadow rounded"
           />
-          <DebouncedInput
-            type="number"
-            min={Number(column.getFacetedMinMaxValues()?.[0] ?? '')}
-            max={Number(column.getFacetedMinMaxValues()?.[1] ?? '')}
-            value={(columnFilterValue)?.[1] ?? ''}
-            onChange={(value) =>
-              column.setFilterValue((old) => [old?.[0], value])
-            }
-            placeholder={`Max ${
-              column.getFacetedMinMaxValues()?.[1]
-                ? `(${column.getFacetedMinMaxValues()?.[1]})`
-                : ''
-            }`}
-            className="w-24 border shadow rounded"
-          />
+          </div>
         </div>
         <div className="h-1" />
       </div>

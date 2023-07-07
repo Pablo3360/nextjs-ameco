@@ -27,6 +27,11 @@ export const columns =[
         
     },
     {
+        header:'Fecha de alta',
+        accessorKey:'FechaDeAlta',
+        footer:'Fecha de alta',
+    },
+    {
         header:'Acciones',
         accessorKey:'actions',
         footer:'Acciones',

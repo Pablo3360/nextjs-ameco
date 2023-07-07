@@ -47,10 +47,6 @@ export default function Login(){
                 setLoad(false)
             })
         }
-        // else{
-        //     setModalLabel(error)
-        //     setLoginModal(true)
-        // }
     }
     function closeModal(){
         setLoginModal(false)
