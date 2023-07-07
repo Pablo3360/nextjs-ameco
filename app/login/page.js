@@ -39,6 +39,7 @@ export default function Login(){
             setLoad(true)
             axios.post(`${process.env.NEXT_PUBLIC_URL_API}/auth/login`,inputValue).then(res=>{
                 dispatch(setUser(res.data.data))
+                console.log('resdatadata :',res.data.data)
                 setLoad(false)
                 router.push('/dashboard')
             }).catch(err=>{
