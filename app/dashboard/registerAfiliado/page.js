@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import styles from './page.module.css';
+import { sendData } from './sendData';
 import { mock_empleadores } from './mock';
 
 export default function registerAfiliado() {
@@ -49,8 +50,8 @@ export default function registerAfiliado() {
     nacimiento: '',
     estadoCivil: '',
     localidad: '',
-    domicilio: '',
-    telCelular: '',
+   // domicilio: '',
+    //telCelular: '',
     tipoAfiliado: '',
     empleadorId: ''
      },
@@ -58,8 +59,8 @@ export default function registerAfiliado() {
         setIsButtonDisabled(true);
         setIsLoading(true);   
         // enviar los datos del formulario y manejar la respuesta
-   //const response = await sendData(values);
-   const response = values
+   const response = await sendData(values, user);
+   //const response = values
 
     setIsLoading(false);
     //if (response.success) {
@@ -124,7 +125,7 @@ return (
           onChange={formik.handleChange}
           required
         />
-         <label htmlFor="telCelular">Telefono Celular: </label>
+         {/* <label htmlFor="telCelular">Telefono Celular: </label>
         <input
           type="text"
           id="telCelular"
@@ -132,7 +133,7 @@ return (
           value={formik.values.telCelular}
           onChange={formik.handleChange}
         //   required
-        />
+        /> */}
 
       </div>
       <div className={styles.formContainer}>
@@ -147,7 +148,7 @@ return (
           <option value="">Selecciona una opción</option>
           <option value="varon">Varón</option>
           <option value="mujer">Mujer</option>
-          <option value="sinEspecificar">Sin especificar</option>
+          {/* <option value="sinEspecificar">Sin especificar</option> */}
         </select>
         <label htmlFor="estadoCivil">Estado Civil: </label>
         <select
@@ -157,10 +158,10 @@ return (
           onChange={formik.handleChange}
         >
           <option value="">Selecciona una opción</option>
-          <option value="soltero/a">Soltero/a</option>
-          <option value="casado/a">Casado/a</option>
-          <option value="unionDeHecho">Unión de Hecho</option>
-          <option value="sinEspecificar">Sin especificar</option>
+          <option value="soltero">Soltero/a</option>
+          <option value="casado">Casado/a</option>
+          <option value="unionHecho">Unión de Hecho</option>
+          {/* <option value="sinEspecificar">Sin especificar</option> */}
         </select>
       </div>
       <div className={styles.formContainer}>
@@ -173,7 +174,7 @@ return (
           onChange={formik.handleChange}
           required
         />
-         <label htmlFor="domicilio">Domicilio: </label>
+         {/* <label htmlFor="domicilio">Domicilio: </label>
         <input
           type="text"
           id="domicilio"
@@ -181,7 +182,7 @@ return (
           value={formik.values.domicilio}
           onChange={formik.handleChange}
        
-        />
+        /> */}
       </div>
       <div  className={styles.formContainer}>
   <label htmlFor="tipoAfiliado">Tipo de Afiliado: </label>
