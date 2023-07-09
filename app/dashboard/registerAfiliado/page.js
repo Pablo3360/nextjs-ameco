@@ -1,14 +1,41 @@
 'use client' //directiva que hay que usar en Next13 cuando usamos useState
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 import { useFormik } from 'formik';
 import styles from './page.module.css';
 import { mock_empleadores } from './mock';
 
 export default function registerAfiliado() {
+  const router=useRouter()
+    const [data,setData]=useState([]);
+  let user=useSelector(state=>state.user)
+  
+  useEffect(()=>{
+    if (!user.user) {
+        router.push('/login')
+        return;
+    } else
+    axios.get(`${process.env.NEXT_PUBLIC_URL_API}/empleadores`,{
+        headers: {
+          Authorization: 'Bearer ' + user.user.token
+        }
+       }).then(res=>{
+        const data= res.data.data;
+    //    console.log(data)
+    
+      const empleadores=data
+        setData(empleadores)
+    //    console.log(data)
+    }).catch(err=>{
+        console.log(err)
+    })
+},[])
 
-    //mock para empleadores- prueba - despues traer de la BD
- const empleadores = mock_empleadores
+//     //mock para empleadores- prueba - despues traer de la BD
+//  const empleadores = mock_empleadores
  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
  const [isLoading, setIsLoading] = useState(false);
 
@@ -30,7 +57,7 @@ export default function registerAfiliado() {
     onSubmit: async (values)=> {
         setIsButtonDisabled(true);
         setIsLoading(true);   
-        // Aquí puedes enviar los datos del formulario y manejar la respuesta
+        // enviar los datos del formulario y manejar la respuesta
    //const response = await sendData(values);
    const response = values
 
@@ -42,6 +69,7 @@ export default function registerAfiliado() {
       
       alert ('Afiliado creado con exito')
       formik.resetForm() //limpia el formulario
+        }else {
       // Mostrar pop-up de error
       alert("hay campos vacios")
     }
@@ -152,7 +180,7 @@ return (
           name="domicilio"
           value={formik.values.domicilio}
           onChange={formik.handleChange}
-          //required
+       
         />
       </div>
       <div  className={styles.formContainer}>
@@ -178,9 +206,9 @@ return (
     onChange={formik.handleChange}
   >
     <option value="">Selecciona una opción</option>
-    {empleadores.map((empleador) => (
-      <option key={empleador.uuid} value={empleador.uuid}>
-        {empleador.razonSocial} - {empleador.cuit}
+    {data.map((empleador) => (
+      <option key={empleador.id} value={empleador.id}>
+        {empleador.razon} - {empleador.cuit}
       </option>
     ))}
   </select>
