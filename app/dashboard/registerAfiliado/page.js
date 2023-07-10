@@ -43,9 +43,9 @@ export default function RegisterAfiliado() {
   const handleSubmit = async values => {
     setIsButtonDisabled(false);
     setIsLoading(false);
-    //const response = await sendData(values, user);
+    const response = await sendData(values, user);
     //comentar el de arriba y descomentar el de abajo para pruebas sin guardar en BD
-    const response=values;
+    //const response=values;
     setIsLoading(false);
     if (response) {
 
