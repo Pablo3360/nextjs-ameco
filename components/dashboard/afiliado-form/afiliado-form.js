@@ -24,9 +24,9 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
     onSubmit,
     
   });
-  useEffect(() => {
-    setLimpiarForm(() => () => formik.resetForm());
-  }, [formik, setLimpiarForm]);
+//   useEffect(() => {
+//     setLimpiarForm(() => () => formik.resetForm());
+//   }, [formik, setLimpiarForm]);
 
   return (
     <div className={styles.principal}>        
@@ -95,7 +95,7 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
         <option value="">Selecciona una opción</option>
         <option value="varon">Varón</option>
         <option value="mujer">Mujer</option>
-        <option value="sinEspecificar">Sin especificar</option>
+        {/* <option value="sinEspecificar">Sin especificar</option> */}
       </select>
       <label htmlFor="estadoCivil">Estado Civil: </label>
       <select
@@ -105,10 +105,10 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
         onChange={formik.handleChange}
       >
         <option value="">Selecciona una opción</option>
-        <option value="soltero/a">Soltero/a</option>
-        <option value="casado/a">Casado/a</option>
+        <option value="soltero">Soltero/a</option>
+        <option value="casado">Casado/a</option>
         <option value="unionDeHecho">Unión de Hecho</option>
-        <option value="sinEspecificar">Sin especificar</option>
+        {/* <option value="sinEspecificar">Sin especificar</option> */}
       </select>
     </div>
     <div className={styles.formContainer}>

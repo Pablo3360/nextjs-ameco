@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-export default async function sendData(values, user) {
+export async function sendEmpleador(values, user) {
     // const valores= values;
     // console.log("Valores:"  + valores)
     const userRoles=user.user.roles
     console.log(values)
-    if(userRoles.includes('admin')||userRoles.includes('secretario')|| userRoles.includes('presidente')){
+    if(userRoles.includes('admin')||userRoles.includes('secretario')|| userRoles.includes('presidente')||userRoles.includes('tesorero')){
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_URL_API}/afiliados/register-afiliado`,
+        `${process.env.NEXT_PUBLIC_URL_API}/empleadores/register-empleador`,
         values,
         {
           headers: {

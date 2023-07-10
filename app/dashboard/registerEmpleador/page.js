@@ -6,37 +6,14 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import {useFormik } from 'formik';
-import AfiliadoForm from '../../../components/dashboard/afiliado-form/afiliado-form';
-import sendData from './sendData'
+import EmpleadorForm from '../../../components/dashboard/empleador-form/empleador-form';
+import { sendEmpleador } from './sendEmpleador';
 
-export default function RegisterAfiliado() {
+export default function RegisterEmpleador() {
   const router = useRouter();
   const [data, setData] = useState([]);
   let user = useSelector(state => state.user);
-  //const [limpiarForm, setLimpiarForm] = useState(() => () => {});
-
-  useEffect(() => {
-    if (!user.user) {
-      router.push('/login');
-      return;
-    } else {
-      axios
-        .get(`${process.env.NEXT_PUBLIC_URL_API}/empleadores`, {
-          headers: {
-            Authorization: 'Bearer ' + user.user.token
-          }
-        })
-        .then(res => {
-          const data = res.data.data;
-          const empleadores = data;
-          setData(empleadores);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  }, []); 
+//agregar Recaudadores
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -44,35 +21,32 @@ export default function RegisterAfiliado() {
   const handleSubmit = async values => {
     setIsButtonDisabled(false);
     setIsLoading(false);
-    const response = await sendData(values, user);
+    //const response = await sendEmpleador(values, user);
     //comentar el de arriba y descomentar el de abajo para pruebas sin guardar en BD
-    //const response=values;
+    const response=values;
     setIsLoading(false);
     if (response) {
 
     Swal.fire({
       title: 'Resultado positivo',
-      text: 'Afiliado creado con éxito',
+      text: 'Empleador creado con éxito',
       icon: 'success',
       showCancelButton: true,
-      confirmButtonText: 'Ir a la Ficha del Afiliado',
+      confirmButtonText: 'Ir a la Ficha del Empleador',
       cancelButtonText: 'Cerrar'
       
     }).then(result => {
       if (result.isConfirmed) {
-        // ficha del afiliado
+        // ficha del empleador
         Swal.fire({
-          title: 'Ficha del Afiliado',
+          title: 'Ficha del Empleador',
           text: Object.entries(values)
           .map(([key, value]) => `${key}: ${value}`)
           .join('\n'),
           confirmButtonText: 'Cerrar'
         });
-        //limpiarForm();
+       
       }
-      // else {
-      //  // limpiarForm();
-      // }
        
       
     });
@@ -82,12 +56,12 @@ export default function RegisterAfiliado() {
 
   return ( 
     <div style={{"marginTop":"40px","marginLeft":"80px"}}>       
-    <AfiliadoForm 
+    <EmpleadorForm 
       data={data} 
       isButtonDisabled={isButtonDisabled} 
       setIsButtonDisabled={setIsButtonDisabled} 
       onSubmit={handleSubmit} 
-      // setLimpiarForm={setLimpiarForm}
+      
     />
     </div>
   );
