@@ -31,3 +31,7 @@
     width: 50%;
     height: 35px;
   }
+  /* en tu archivo CSS */
+.button-disabled {
+  display: none;
+}
