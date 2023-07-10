@@ -5,8 +5,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import styles from './page.module.css';
-import { sendData } from './sendData';
+import Swal from 'sweetalert2';
 import AfiliadoForm from '../../../components/dashboard/afiliado-form/afiliado-form';
 
 export default function RegisterAfiliado() {
@@ -47,13 +46,29 @@ export default function RegisterAfiliado() {
     const response=values;
     setIsLoading(false);
     if (response) {
-      alert(JSON.stringify(values, null, 2));
-      alert('Afiliado creado con exito');
-    } else {
-      alert('hay campos vacios');
-    }
-    setIsButtonDisabled(false);
-  };
+    //   alert(JSON.stringify(values, null, 2));
+    //   alert('Afiliado creado con exito');
+    // } else {
+    //   alert('hay campos vacios');
+    // }
+    // setIsButtonDisabled(false);
+    Swal.fire({
+      title: 'Resultado positivo',
+      text: 'Afiliado creado con éxito',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonText: 'Ir a la Ficha del Afiliado',
+      cancelButtonText: 'Cerrar'
+    }).then(result => {
+      if (result.isConfirmed) {
+        // código para ir a la ficha del afiliado
+        alert(JSON.stringify(values, null, 2));
+      } else {
+        
+        formik.resetForm();
+      }
+    });
+     }}
 
   return ( 
     <div style={{"marginTop":"40px","marginLeft":"80px"}}>       
@@ -64,5 +79,5 @@ export default function RegisterAfiliado() {
       onSubmit={handleSubmit} 
     />
     </div>
- );
+  );
 }
