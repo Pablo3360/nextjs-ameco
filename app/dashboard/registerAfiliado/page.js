@@ -6,12 +6,14 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
+import {useFormik } from 'formik';
 import AfiliadoForm from '../../../components/dashboard/afiliado-form/afiliado-form';
 
 export default function RegisterAfiliado() {
   const router = useRouter();
   const [data, setData] = useState([]);
   let user = useSelector(state => state.user);
+  const [limpiarForm, setLimpiarForm] = useState(() => () => {});
 
   useEffect(() => {
     if (!user.user) {
@@ -46,12 +48,7 @@ export default function RegisterAfiliado() {
     const response=values;
     setIsLoading(false);
     if (response) {
-    //   alert(JSON.stringify(values, null, 2));
-    //   alert('Afiliado creado con exito');
-    // } else {
-    //   alert('hay campos vacios');
-    // }
-    // setIsButtonDisabled(false);
+
     Swal.fire({
       title: 'Resultado positivo',
       text: 'Afiliado creado con éxito',
@@ -59,16 +56,27 @@ export default function RegisterAfiliado() {
       showCancelButton: true,
       confirmButtonText: 'Ir a la Ficha del Afiliado',
       cancelButtonText: 'Cerrar'
+      
     }).then(result => {
       if (result.isConfirmed) {
-        // código para ir a la ficha del afiliado
-        alert(JSON.stringify(values, null, 2));
-      } else {
-        
-        formik.resetForm();
+        // ficha del afiliado
+        Swal.fire({
+          title: 'Ficha del Afiliado',
+          text: Object.entries(values)
+          .map(([key, value]) => `${key}: ${value}`)
+          .join('\n'),
+          confirmButtonText: 'Cerrar'
+        });
+        limpiarForm();
+      }else {
+        limpiarForm();
       }
+       
+      
     });
+    
      }}
+
 
   return ( 
     <div style={{"marginTop":"40px","marginLeft":"80px"}}>       
@@ -77,6 +85,7 @@ export default function RegisterAfiliado() {
       isButtonDisabled={isButtonDisabled} 
       setIsButtonDisabled={setIsButtonDisabled} 
       onSubmit={handleSubmit} 
+      setLimpiarForm={setLimpiarForm}
     />
     </div>
   );

@@ -1,10 +1,11 @@
 // components/RegisterAfiliadoForm.js
 import { useFormik } from 'formik';
+import { useEffect } from 'react';
 
 import styles from './afiliado-form.module.css';
 import React from 'react';
 
-export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled, onSubmit }) {
+export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled, onSubmit, setLimpiarForm }) {
  //
   const formik = useFormik({
     initialValues: {
@@ -20,12 +21,16 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
       tipoAfiliado: '',
       empleadorId: ''
     },
-    onSubmit
+    onSubmit,
+    
   });
+  useEffect(() => {
+    setLimpiarForm(() => () => formik.resetForm());
+  }, [formik, setLimpiarForm]);
 
   return (
     <div className={styles.principal}>        
-    <h1>ALTA AFILIADOS</h1>
+    <h1>ALTA AFILIADO</h1>
   <form onSubmit={formik.handleSubmit}>
     <div className={styles.formContainer}>
       <label htmlFor="apellidos">*Apellido: </label>
