@@ -1,6 +1,6 @@
 import Nav from "@/components/Nav/nav.js"
 import Header from "@/components/header/header"
-import { AuthProvider } from "@/app/functions/authProvider"
+import { AuthProvider } from "@/app/Provider/authProvider"
 export default function DashboardLayout({
     children,
   }) {
