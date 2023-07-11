@@ -1,0 +1,29 @@
+
+.button {
+  background-color: #eee;
+  border: none;
+  margin-top: 3%;
+  padding: 1rem;
+  font-size: 1rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  color:#007bff;
+  box-shadow: 0 1px 1px 1px #525253;
+  cursor: pointer;
+ }
+ 
+ .button:active {
+  color: white;
+  transform: translateY(0.2rem);
+ }
+
+ .button:hover:not(:disabled) {
+  background: #3995f7;
+  color: white;
+  
+} 
+
+ .button:disabled {
+  cursor: auto;
+  color: grey;
+ }

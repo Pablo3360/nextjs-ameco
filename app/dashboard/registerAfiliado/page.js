@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import {useFormik } from 'formik';
+//import {useFormik } from 'formik';
 import AfiliadoForm from '../../../components/dashboard/afiliado-form/afiliado-form';
 import sendData from './sendData'
 
@@ -14,11 +14,11 @@ export default function RegisterAfiliado() {
   const router = useRouter();
   const [data, setData] = useState([]);
   let user = useSelector(state => state.user);
-  //const [limpiarForm, setLimpiarForm] = useState(() => () => {});
+  const [limpiarForm, setLimpiarForm] = useState(() => () => {});
 
   useEffect(() => {
     if (!user.user) {
-      router.push('/login');
+      router.push('/');
       return;
     } else {
       axios
@@ -44,15 +44,15 @@ export default function RegisterAfiliado() {
   const handleSubmit = async values => {
     setIsButtonDisabled(false);
     setIsLoading(false);
-    const response = await sendData(values, user);
+    //const response = await sendData(values, user);
     //comentar el de arriba y descomentar el de abajo para pruebas sin guardar en BD
-    //const response=values;
+    const response=values;
     setIsLoading(false);
     if (response) {
 
     Swal.fire({
-      title: 'Resultado positivo',
-      text: 'Afiliado creado con éxito',
+      title: '',
+      text: 'AFILIADO  CREADO CON EXITO',
       icon: 'success',
       showCancelButton: true,
       confirmButtonText: 'Ir a la Ficha del Afiliado',
@@ -68,26 +68,18 @@ export default function RegisterAfiliado() {
           .join('\n'),
           confirmButtonText: 'Cerrar'
         });
-        //limpiarForm();
-      }
-      // else {
-      //  // limpiarForm();
-      // }
-       
-      
-    });
-    
+     }      
+     limpiarForm();      
+    });    
      }}
 
 
   return ( 
-    <div style={{"marginTop":"40px","marginLeft":"80px"}}>       
+    <div style={{marginLeft:"2%"}}>       
     <AfiliadoForm 
       data={data} 
-      isButtonDisabled={isButtonDisabled} 
-      setIsButtonDisabled={setIsButtonDisabled} 
       onSubmit={handleSubmit} 
-      // setLimpiarForm={setLimpiarForm}
+      setLimpiarForm={setLimpiarForm}
     />
     </div>
   );

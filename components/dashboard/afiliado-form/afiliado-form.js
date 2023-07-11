@@ -1,11 +1,12 @@
 // components/RegisterAfiliadoForm.js
+import React from 'react';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
-
+import ButtonForm from '../../buttons/buttonForm.js';
 import styles from './afiliado-form.module.css';
-import React from 'react';
 
-export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled, onSubmit, setLimpiarForm }) {
+
+export default function AfiliadoForm({data, onSubmit, setLimpiarForm }) {
  //
   const formik = useFormik({
     initialValues: {
@@ -24,14 +25,14 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
     onSubmit,
     
   });
-//   useEffect(() => {
-//     setLimpiarForm(() => () => formik.resetForm());
-//   }, [formik, setLimpiarForm]);
+  useEffect(() => {
+    setLimpiarForm(() => () => formik.resetForm());
+  }, []);
 
   return (
     <div className={styles.principal}>        
     <h1>ALTA AFILIADO</h1>
-  <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit}>
     <div className={styles.formContainer}>
       <label htmlFor="apellidos">*Apellido: </label>
       <input
@@ -65,6 +66,7 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
       />
        <label htmlFor="nacimiento">*Fecha Nacimiento: </label>
       <input
+        style={{borderRadius:"1rem"}}
         type="date"
         id="nacimiento"
         name="nacimiento"
@@ -81,11 +83,12 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
         onChange={formik.handleChange}
       //   required
       />
-
     </div>
-    <div className={styles.formContainer}>
+    
+    <div className={styles.formContainerBorder}>
     <label htmlFor="sexo">*Sexo al nacer: </label>
       <select
+       style={{borderRadius:"1rem"}}
         id="sexo"
         name="sexo"
         value={formik.values.sexo}
@@ -97,8 +100,10 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
         <option value="mujer">Mujer</option>
         {/* <option value="sinEspecificar">Sin especificar</option> */}
       </select>
+      
       <label htmlFor="estadoCivil">Estado Civil: </label>
       <select
+       style={{borderRadius:"1rem"}}
         id="estadoCivil"
         name="estadoCivil"
         value={formik.values.estadoCivil}
@@ -111,6 +116,7 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
         {/* <option value="sinEspecificar">Sin especificar</option> */}
       </select>
     </div>
+    
     <div className={styles.formContainer}>
     <label htmlFor="localidad">*Localidad: </label>
       <input
@@ -121,48 +127,46 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
         onChange={formik.handleChange}
         required
       />
-       <label htmlFor="domicilio">Domicilio: </label>
+      <label htmlFor="domicilio">Domicilio: </label>
       <input
         type="text"
         id="domicilio"
         name="domicilio"
         value={formik.values.domicilio}
-        onChange={formik.handleChange}
-     
+        onChange={formik.handleChange}     
       />
     </div>
-    <div  className={styles.formContainer}>
-<label htmlFor="tipoAfiliado">Tipo de Afiliado: </label>
-<select
-  id="tipoAfiliado"
-  name="tipoAfiliado"
-  value={formik.values.tipoAfiliado}
-  onChange={formik.handleChange}
->
-  <option value="">Selecciona una opción</option>
-  <option value="activo">Activo</option>
-  <option value="adherente">Adherente</option>
-</select>
-</div>
-
-<div>
-<label htmlFor="empleadorId">Empleador: </label>
-<select
-  id="empleadorId"
-  name="empleadorId"
-  value={formik.values.empleadorId}
-  onChange={formik.handleChange}
->
-  <option value="">Selecciona una opción</option>
-  {data.map((empleador) => (
-    <option key={empleador.id} value={empleador.id}>
-      {empleador.razon} - {empleador.cuit}
-    </option>
-  ))}
-</select>
-</div>
-
-<button className={`${styles.button} ${isButtonDisabled ? 'button-disabled' : ''}`} type="submit">DAR DE ALTA</button>
+    <div  className={styles.formContainerBorder}>
+      <label htmlFor="tipoAfiliado">Tipo de Afiliado: </label>
+      <select
+        style={{borderRadius:"1rem"}}
+        id="tipoAfiliado"
+        name="tipoAfiliado"
+        value={formik.values.tipoAfiliado}
+        onChange={formik.handleChange}
+      >
+      <option value="">Selecciona una opción</option>
+      <option value="activo">Activo</option>
+      <option value="adherente">Adherente</option>
+      </select>
+      
+        <label htmlFor="empleadorId">Empleador: </label>
+        <select
+        style={{borderRadius:"1rem"}}
+        id="empleadorId"
+        name="empleadorId"
+        value={formik.values.empleadorId}
+        onChange={formik.handleChange}
+        >
+        <option value="">Selecciona una opción</option>
+          {data.map((empleador) => (
+          <option key={empleador.id} value={empleador.id}>
+          {empleador.razon} - {empleador.cuit}
+        </option>
+        ))}
+        </select>
+    </div>
+    <ButtonForm type="submit">DAR DE ALTA</ButtonForm>
 </form>
 </div>
   );
