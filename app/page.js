@@ -3,21 +3,19 @@ import { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import validate from './validate'
 import axios from 'axios'
-import Modal from '@/components/modal/Modal'
+import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from '@/app/store/userSlice'
 
 export default function Login(){
-    const { inputContainer, inputField, inputLabel, inputHighlight, contain, loginButton, svg, circle, inputs, second, modal, login } = styles
+    const { inputContainer, inputField, inputLabel, inputHighlight, contain, loginButton, svg, circle, inputs, second, login } = styles
     const [ load, setLoad ] = useState(false)
     const [ inputValue, setInputValue] = useState({
         mail: '',
         password: ''
     })
     const [ error, setError ] = useState('')
-    const [ loginModal, setLoginModal ] = useState(false)
-    const [ modalLabel, setModalLabel ] = useState('')
     const router  = useRouter()
 
     const dispatch = useDispatch();
@@ -30,11 +28,15 @@ export default function Login(){
         })
     }
     function handlerSubmit(){
-        if(inputValue.mail === '' | inputValue.password === '') {
-            setModalLabel('Debe llenar todos los campos')
-            setLoginModal(true)
-        }
+
         setError(validate(inputValue))
+        if (error) {
+            Swal.fire({
+                title: 'error',
+                text: error,
+                icon: 'error',
+            })
+        } else
         if(validate(inputValue) === ''){
             setLoad(true)
             axios.post(`${process.env.NEXT_PUBLIC_URL_API}/auth/login`,inputValue).then(res=>{
@@ -44,13 +46,23 @@ export default function Login(){
                 // router.push('/dashboard')
             }).catch(err=>{
                 console.log(err)
-                alert(err.message)
+                // alert(err.message)
                 setLoad(false)
+                if (err.response.status===403){
+                    Swal.fire({
+                        title: 'error',
+                        text: 'Direccion de correo electronico o contraseña incorrectas',
+                        icon: 'error',
+                    })
+                } else {
+                    Swal.fire({
+                        title: 'error',
+                        text: 'Ocurrio un error inesperado, intente mas tarde',
+                        icon: 'error',
+                    })
+                }
             })
         }
-    }
-    function closeModal(){
-        setLoginModal(false)
     }
     useEffect(()=>{
         let userJson=localStorage.getItem('user')
@@ -64,7 +76,7 @@ export default function Login(){
         <div className={contain} >
             <h1 style={{margin: "10px 0"}} >Iniciar Sesión</h1>
             <div className={inputs} onClick={() => setLoad(false)} >
-                { error === "" ? "" : <p style={{color: "red", margin: "10px 0"}} >{error}</p>}
+                {/* { error === "" ? "" : <p style={{color: "red", margin: "10px 0"}} >{error}</p>} */}
                 <div className={inputContainer}>
                     <input onChange={handlerChange} name="mail" placeholder="mail" className={inputField} type="mail" required={true}/>
                     <label htmlFor="input-field" className={inputLabel}>Enter text</label>
@@ -76,8 +88,6 @@ export default function Login(){
                     <span className={inputHighlight}></span>
                 </div>
             </div>
-            {loginModal? <Modal message={modalLabel} close={closeModal} ></Modal> : ""}
-            {/* <Modal className={modal} isOpen={loginModal} onRequestClose={closeModal} contentLabel='registrado' ></Modal> */}
             <div className={second} >
             {
                 load? (

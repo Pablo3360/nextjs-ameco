@@ -2,13 +2,15 @@
 
 import React from 'react'
 import EmployersTable from '@/components/dashboard/employers-table/employers-table'
-import { useSelector } from 'react-redux'
+import { handleLogOut } from '@/app/functions'
+import { useSelector,useDispatch } from 'react-redux'
 import { useState,useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 
 export default function Employers() {
     const router=useRouter()
+    const dispatch=useDispatch()
     const [data,setData]=useState('');
     const user = useSelector(state=>state.user.user)
     let token=user?.token
@@ -33,7 +35,7 @@ export default function Employers() {
                 setData(tableData)
             }).catch(err=>{
                 console.log(err)
-                router.push('/')
+                handleLogOut(dispatch,router)
             })
         }
     },[token])

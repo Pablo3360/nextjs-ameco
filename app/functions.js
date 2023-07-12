@@ -1,4 +1,12 @@
+import { logOut } from "./store/userSlice";
 
+export function handleLogOut(dispatch,router){
+    // router=useRouter();
+    // dispatch=useDispatch()
+    dispatch(logOut());
+    localStorage.clear();
+    router.push('/')
+  }
 //transforma fecha tal que 1992-01-18T00:00:00.000Z => 18/01/1992
 export function formatDate(date){
     const fechaStr = date;
