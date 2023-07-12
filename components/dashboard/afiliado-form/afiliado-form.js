@@ -2,7 +2,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
-import ButtonForm from '../../buttons/buttonForm.js';
+import Button from '../../common/button/button.js';
 import styles from './afiliado-form.module.css';
 
 
@@ -166,7 +166,10 @@ export default function AfiliadoForm({data, onSubmit, setLimpiarForm }) {
         ))}
         </select>
     </div>
-    <ButtonForm type="submit">DAR DE ALTA</ButtonForm>
+    <div className={styles.buttonsContainer}>
+    <Button type="submit" text="alta" >Dar de Alta</Button>
+    <Button type="" text="volver" >Volver</Button>
+    </div>
 </form>
 </div>
   );
