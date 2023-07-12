@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default async function sendData(values, user) {
     // const valores= values;
@@ -18,8 +19,19 @@ export default async function sendData(values, user) {
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      if(400)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El Afiliado ya Existe'
+      });
     }
-} else( alert("No tiene el rol permitido para esta accion"))
+} else{
+  Swal.fire({
+    icon: 'error',
+    title: 'Disculpa',
+    text: 'No Tienes Autorizacion!'
+  });
+}
   }
   

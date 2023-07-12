@@ -19,6 +19,7 @@ export default function EmpleadorForm({data,onSubmit, setLimpiarForm }) {
     onSubmit,
     
   });
+  //limpiar formulario
   useEffect(() => {
     setLimpiarForm(() => () => formik.resetForm());
   }, []);

@@ -2,13 +2,15 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation.js';
 import Button from '../../common/button/button.js';
 import Title from '@/components/common/title/title.js';
 import styles from '../../common/form/form.module.css'; //css para todos los formularios
 
 
 export default function AfiliadoForm({data, onSubmit, setLimpiarForm }) {
- 
+  
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       apellidos: '',
@@ -24,11 +26,18 @@ export default function AfiliadoForm({data, onSubmit, setLimpiarForm }) {
       empleadorId: ''
     },
     onSubmit,
-    
   });
+   //limpiar formulario
   useEffect(() => {
     setLimpiarForm(() => () => formik.resetForm());
   }, []);
+
+  const handleBack = () => {
+   console.log("boton volver")
+    // router.push('/dashboard/affiliates');
+    
+  };
+
 
   return (
     <div>        
@@ -175,7 +184,7 @@ export default function AfiliadoForm({data, onSubmit, setLimpiarForm }) {
     </div>
     <div className={styles.buttonsContainer}>
     <Button type="submit" text="alta" >Dar de Alta</Button>
-    <Button type="" text="volver" >Volver</Button>
+    <Button  type='button' text="volver" onChange={handleBack}> Volver</Button>
     </div>
 </form>
 </div>
