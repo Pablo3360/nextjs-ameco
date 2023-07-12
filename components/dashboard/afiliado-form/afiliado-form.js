@@ -3,6 +3,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import Button from '../../common/button/button.js';
+import Title from '@/components/common/title/title.js';
 import styles from './afiliado-form.module.css';
 
 
@@ -30,8 +31,8 @@ export default function AfiliadoForm({data, onSubmit, setLimpiarForm }) {
   }, []);
 
   return (
-    <div className={styles.principal}>        
-    <h1>ALTA AFILIADO</h1>
+    <div>        
+     <Title text="Alta Afiliado"></Title>
     <form onSubmit={formik.handleSubmit}>
     <div className={styles.formContainer}>
       <label htmlFor="apellidos">*Apellido: </label>

@@ -61,13 +61,13 @@ export default function RegisterAfiliado() {
     }).then(result => {
       if (result.isConfirmed) {
         // ficha del afiliado
-        Swal.fire({
-          title: 'Ficha del Afiliado',
-          text: Object.entries(values)
-          .map(([key, value]) => `${key}: ${value}`)
-          .join('\n'),
-          confirmButtonText: 'Cerrar'
-        });
+        // Swal.fire({
+        //   title: 'Ficha del Afiliado',
+        //   text: Object.entries(values)
+        //   .map(([key, value]) => `${key}: ${value}`)
+        //   .join('\n'),
+        //   confirmButtonText: 'Cerrar'
+        // });
      }      
      limpiarForm();      
     });    

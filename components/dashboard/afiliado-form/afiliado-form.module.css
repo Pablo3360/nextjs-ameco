@@ -1,20 +1,7 @@
-.principal{
-  text-align: center;
-    
-}
-.principal h1{
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-bottom: 1px solid ;
-    padding:10px
-    
-}
-.border{
-  border-bottom: 1px solid;
-  margin-top: 25px;
-}
+
+
 .formContainer{
-    margin-top: 50px;
+    margin-top: 20px;
     display: flex;
     flex-direction: row;  
     align-items: flex-start;   
