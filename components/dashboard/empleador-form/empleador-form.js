@@ -1,11 +1,12 @@
 // components/RegisterAfiliadoForm.js
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
-
-import styles from './empleador-form.module.css';
+import styles from '../../common/form/form.module.css'; //css para todos los formularios
+import Button from '../../common/button/button.js';
+import Title from '@/components/common/title/title.js';
 import React from 'react';
 
-export default function EmpleadorForm({data,isButtonDisabled, setIsButtonDisabled, onSubmit }) {
+export default function EmpleadorForm({data,onSubmit, setLimpiarForm }) {
  //
   const formik = useFormik({
     initialValues: {
@@ -18,14 +19,17 @@ export default function EmpleadorForm({data,isButtonDisabled, setIsButtonDisable
     onSubmit,
     
   });
+  useEffect(() => {
+    setLimpiarForm(() => () => formik.resetForm());
+  }, []);
   
 
   return (
-    <div className={styles.principal}>        
-    <h1>ALTA EMPLEADOR</h1>
-  <form onSubmit={formik.handleSubmit}>
+  <div>        
+  <Title text="Alta Empleador"></Title>
+  <form className={styles.container} onSubmit={formik.handleSubmit}>
     <div className={styles.formContainer}>
-      <label htmlFor="razon">*Razon Social: </label>
+      <label htmlFor="razon">Razon Social: </label>
       <input
         type="text"
         id="razon"
@@ -33,8 +37,10 @@ export default function EmpleadorForm({data,isButtonDisabled, setIsButtonDisable
         value={formik.values.razon}
         onChange={formik.handleChange}
         required
-      />     
-      <label htmlFor="cuit">*CUIT: </label>
+      />  
+      </div>
+      <div className={styles.formContainer}>   
+      <label htmlFor="cuit">CUIT: </label>
       <input
         type="text"
         id="cuit"
@@ -44,9 +50,8 @@ export default function EmpleadorForm({data,isButtonDisabled, setIsButtonDisable
         required
       />
     </div>
-
     <div className={styles.formContainer}>
-      <label htmlFor="mail">*Email: </label>
+      <label htmlFor="mail">Email: </label>
       <input
         type="mail"
         id="mail"
@@ -56,9 +61,8 @@ export default function EmpleadorForm({data,isButtonDisabled, setIsButtonDisable
         required
       />
     </div>  
-    
     <div className={styles.formContainer}>
-    <label htmlFor="localidad">*Localidad: </label>
+    <label htmlFor="localidad">Localidad: </label>
       <input
         type="text"
         id="localidad"
@@ -68,7 +72,7 @@ export default function EmpleadorForm({data,isButtonDisabled, setIsButtonDisable
         required
       />
     </div>
-   <div style={{"marginTop":"25px"}}>
+    <div className={styles.formContainer}>
    <label htmlFor="recaudadorId">Recaudador: </label>  
     <select
      id="recaudadorId"
@@ -85,7 +89,10 @@ export default function EmpleadorForm({data,isButtonDisabled, setIsButtonDisable
     </select>
     </div>
 
-<button className={`${styles.button} ${isButtonDisabled ? 'button-disabled' : ''}`} type="submit">DAR DE ALTA</button>
+    <div className={styles.buttonsContainer}>
+    <Button type="submit" text="alta" >Dar de Alta</Button>
+    <Button type="" text="volver" >Volver</Button>
+    </div>
 </form>
 </div>
   );

@@ -38,21 +38,19 @@ export default function RegisterAfiliado() {
     }
   }, []); 
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  
 
   const handleSubmit = async values => {
-    setIsButtonDisabled(false);
-    setIsLoading(false);
+   
     //const response = await sendData(values, user);
     //comentar el de arriba y descomentar el de abajo para pruebas sin guardar en BD
     const response=values;
-    setIsLoading(false);
+   
     if (response) {
 
     Swal.fire({
       title: '',
-      text: 'AFILIADO  CREADO CON EXITO',
+      text: 'AFILIADO DADO DE ALTA CON EXITO',
       icon: 'success',
       showCancelButton: true,
       confirmButtonText: 'Ir a la Ficha del Afiliado',
@@ -61,13 +59,14 @@ export default function RegisterAfiliado() {
     }).then(result => {
       if (result.isConfirmed) {
         // ficha del afiliado
-        // Swal.fire({
-        //   title: 'Ficha del Afiliado',
-        //   text: Object.entries(values)
-        //   .map(([key, value]) => `${key}: ${value}`)
-        //   .join('\n'),
-        //   confirmButtonText: 'Cerrar'
-        // });
+        Swal.fire({
+          title: 'Ficha del Empleador',
+          text: Object.entries(values)
+          .map(([key, value]) => `${key}: ${value}`)
+          .join('\n'),
+          confirmButtonText: 'Cerrar'
+        });
+      
      }      
      limpiarForm();      
     });    
@@ -75,7 +74,7 @@ export default function RegisterAfiliado() {
 
 
   return ( 
-    <div style={{marginLeft:"2%"}}>       
+    <div>       
     <AfiliadoForm 
       data={data} 
       onSubmit={handleSubmit} 

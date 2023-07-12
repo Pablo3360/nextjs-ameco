@@ -27,11 +27,13 @@
  }
  
  .alta:active, .volver:active, .cerrar :active {
+  border: none;
   color: white;
   transform: translateY(0.2rem);
  }
 
  .alta:hover:not(:disabled), .volver:hover:not(:disabled), .cerrar:hover:not(:disabled) {
+  border: none;
    color: white;
   
 } 
