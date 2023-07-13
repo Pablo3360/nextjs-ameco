@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import Link from 'next/link';
 
 export default async function sendData(values, user) {
     // const valores= values;
@@ -18,8 +20,30 @@ export default async function sendData(values, user) {
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      if(400)
+      //alert error 400
+      Swal.fire({
+        icon: 'error',
+        title:"Error",
+        html: `<h3>El Afiliado con DNI ${values.dni} ya existe</h3>`,
+        text: 'YA EXISTE',
+        confirmButtonColor: '#85b9f0',        
+     
+      });
     }
-} else( alert("No tiene el rol permitido para esta accion"))
+} else{
+    // alert error 401 --No autorizado o no logueado
+    Swal.fire({
+      icon: 'error',
+      title: 'No Tienes Autorizacion!',
+      text: 'O No estas Logueado!',
+      confirmButtonText: 'Cerrar',
+      confirmButtonColor: '#85b9f0',  
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.replace('/dashboard')   
+      }
+    });
+}
   }
   

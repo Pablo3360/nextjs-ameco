@@ -1,12 +1,16 @@
 // components/RegisterAfiliadoForm.js
+import React from 'react';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
+import Link from 'next/link';
+import Button from '../../common/button/button.js';
+import Title from '@/components/common/title/title.js';
+import styles from '../../common/form/form.module.css'; //css para todos los formularios
 
-import styles from './afiliado-form.module.css';
-import React from 'react';
 
-export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled, onSubmit, setLimpiarForm }) {
- //
+export default function AfiliadoForm({data, onSubmit, setLimpiarForm }) {
+  
+  
   const formik = useFormik({
     initialValues: {
       apellidos: '',
@@ -17,23 +21,31 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
       estadoCivil: '',
       localidad: '',
       domicilio:'',
-      telCelular:'',
+      celular:'',
       tipoAfiliado: '',
       empleadorId: ''
     },
     onSubmit,
-    
   });
-//   useEffect(() => {
-//     setLimpiarForm(() => () => formik.resetForm());
-//   }, [formik, setLimpiarForm]);
 
+  const handleEstadoCivilChange = (e) => {
+    formik.setFieldValue("estadoCivil", e.target.value === "SinEspecificar" ? null : e.target.value);
+  }
+  const handleSexoChange = (e) => {
+    formik.setFieldValue("sexo", e.target.value === "SinEspecificar" ? null : e.target.value);
+  }
+   //limpiar formulario
+  useEffect(() => {
+    setLimpiarForm(() => () => formik.resetForm());
+  }, []);
+
+ 
   return (
-    <div className={styles.principal}>        
-    <h1>ALTA AFILIADO</h1>
-  <form onSubmit={formik.handleSubmit}>
+    <div>        
+    <Title text="Alta Afiliado"></Title>
+    <form className={styles.container}onSubmit={formik.handleSubmit}>
     <div className={styles.formContainer}>
-      <label htmlFor="apellidos">*Apellido: </label>
+      <label htmlFor="apellidos">Apellido: </label>
       <input
         type="text"
         id="apellidos"
@@ -41,8 +53,10 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
         value={formik.values.apellidos}
         onChange={formik.handleChange}
         required
-      />     
-      <label htmlFor="nombres">*Nombres: </label>
+      /> 
+      </div>
+      <div className={styles.formContainer}>    
+      <label htmlFor="nombres">Nombres: </label>
       <input
         type="text"
         id="nombres"
@@ -54,7 +68,7 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
     </div>
 
     <div className={styles.formContainer}>
-      <label htmlFor="dni">*DNI: </label>
+      <label htmlFor="dni">DNI: </label>
       <input
         type="text"
         id="dni"
@@ -63,56 +77,54 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
         onChange={formik.handleChange}
         required
       />
-       <label htmlFor="nacimiento">*Fecha Nacimiento: </label>
+      </div>
+      <div className={styles.formContainer}>  
+       <label htmlFor="nacimiento">Fecha Nacimiento: </label>
       <input
+        style={{borderRadius:"1rem"}}
         type="date"
         id="nacimiento"
         name="nacimiento"
         value={formik.values.nacimiento}
         onChange={formik.handleChange}
         required
-      />
-       <label htmlFor="telCelular">Telefono Celular: </label>
-      <input
-        type="text"
-        id="telCelular"
-        name="telCelular"
-        value={formik.values.telCelular}
-        onChange={formik.handleChange}
-      //   required
-      />
-
-    </div>
+      />     
+    </div>    
     <div className={styles.formContainer}>
-    <label htmlFor="sexo">*Sexo al nacer: </label>
-      <select
-        id="sexo"
-        name="sexo"
-        value={formik.values.sexo}
-        onChange={formik.handleChange}
-        required
-      >
-        <option value="">Selecciona una opción</option>
-        <option value="varon">Varón</option>
-        <option value="mujer">Mujer</option>
-        {/* <option value="sinEspecificar">Sin especificar</option> */}
-      </select>
       <label htmlFor="estadoCivil">Estado Civil: </label>
       <select
         id="estadoCivil"
         name="estadoCivil"
         value={formik.values.estadoCivil}
-        onChange={formik.handleChange}
+        // onChange={formik.handleChange}
+        onChange={handleEstadoCivilChange}
       >
         <option value="">Selecciona una opción</option>
         <option value="soltero">Soltero/a</option>
         <option value="casado">Casado/a</option>
         <option value="unionDeHecho">Unión de Hecho</option>
-        {/* <option value="sinEspecificar">Sin especificar</option> */}
+        <option value="SinEspecificar">Sin Especificar</option>
       </select>
     </div>
+    <div className={styles.formContainer}>  
+    <label htmlFor="sexo">Sexo al nacer: </label>
+      <select
+        id="sexo"
+        name="sexo"
+        value={formik.values.sexo}
+        onChange={handleSexoChange}
+        required
+      >
+        <option value="">Selecciona una opción</option>
+        <option value="varon">Varón</option>
+        <option value="mujer">Mujer</option>
+        <option value="SinEspecificar">Sin Especificar</option>
+      </select>
+      
+    </div>
+    
     <div className={styles.formContainer}>
-    <label htmlFor="localidad">*Localidad: </label>
+    <label htmlFor="localidad">Localidad: </label>
       <input
         type="text"
         id="localidad"
@@ -120,49 +132,64 @@ export default function AfiliadoForm({data,isButtonDisabled, setIsButtonDisabled
         value={formik.values.localidad}
         onChange={formik.handleChange}
         required
-      />
-       <label htmlFor="domicilio">Domicilio: </label>
+      /> 
+      </div>
+      <div className={styles.formContainer}>
+      <label htmlFor="domicilio">Domicilio: </label>
       <input
         type="text"
         id="domicilio"
         name="domicilio"
         value={formik.values.domicilio}
-        onChange={formik.handleChange}
-     
+        onChange={formik.handleChange}     
       />
+      </div>
+
+      <div className={styles.formContainer}>
+      <label htmlFor="celular">Telefono Celular: </label>
+      <input
+        type="text"
+        id="celular"
+        name="celular"
+        value={formik.values.celular}
+        onChange={formik.handleChange}
+       />
     </div>
     <div  className={styles.formContainer}>
-<label htmlFor="tipoAfiliado">Tipo de Afiliado: </label>
-<select
-  id="tipoAfiliado"
-  name="tipoAfiliado"
-  value={formik.values.tipoAfiliado}
-  onChange={formik.handleChange}
->
-  <option value="">Selecciona una opción</option>
-  <option value="activo">Activo</option>
-  <option value="adherente">Adherente</option>
-</select>
-</div>
-
-<div>
-<label htmlFor="empleadorId">Empleador: </label>
-<select
-  id="empleadorId"
-  name="empleadorId"
-  value={formik.values.empleadorId}
-  onChange={formik.handleChange}
->
-  <option value="">Selecciona una opción</option>
-  {data.map((empleador) => (
-    <option key={empleador.id} value={empleador.id}>
-      {empleador.razon} - {empleador.cuit}
-    </option>
-  ))}
-</select>
-</div>
-
-<button className={`${styles.button} ${isButtonDisabled ? 'button-disabled' : ''}`} type="submit">DAR DE ALTA</button>
+      <label htmlFor="tipoAfiliado">Tipo de Afiliado: </label>
+      <select
+        id="tipoAfiliado"
+        name="tipoAfiliado"
+        value={formik.values.tipoAfiliado}
+        onChange={formik.handleChange}
+      >
+      <option value="">Selecciona una opción</option>
+      <option value="activo">Activo</option>
+      <option value="adherente">Adherente</option>
+      </select>
+      </div>
+      <div  className={styles.formContainer}>      
+        <label htmlFor="empleadorId">Empleador: </label>
+        <select
+        id="empleadorId"
+        name="empleadorId"
+        value={formik.values.empleadorId}
+        onChange={formik.handleChange}
+        >
+        <option value="">Selecciona una opción</option>
+          {data.map((empleador) => (
+          <option key={empleador.id} value={empleador.id}>
+          {empleador.razon} - {empleador.cuit}
+        </option>
+        ))}
+        </select>
+    </div>
+    <div className={styles.buttonsContainer}>
+    <Button type="submit" text="alta" >Dar de Alta</Button>
+    <Link href='/dashboard/affiliates'>
+    <Button  type='button' text="volver" > Volver</Button>
+    </Link>    
+    </div>
 </form>
 </div>
   );

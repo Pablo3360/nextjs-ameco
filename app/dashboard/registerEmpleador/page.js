@@ -13,23 +13,22 @@ export default function RegisterEmpleador() {
   const router = useRouter();
   const [data, setData] = useState([]);
   let user = useSelector(state => state.user);
+  const [limpiarForm, setLimpiarForm] = useState(() => () => {});
 //agregar Recaudadores
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+ 
 
   const handleSubmit = async values => {
-    setIsButtonDisabled(false);
-    setIsLoading(false);
+    
     //const response = await sendEmpleador(values, user);
     //comentar el de arriba y descomentar el de abajo para pruebas sin guardar en BD
     const response=values;
-    setIsLoading(false);
+   
     if (response) {
 
     Swal.fire({
-      title: 'Resultado positivo',
-      text: 'Empleador creado con éxito',
+      title: '',
+      text: 'EMPLEADOR DADO DE ALTA CON EXITO',
       icon: 'success',
       showCancelButton: true,
       confirmButtonText: 'Ir a la Ficha del Empleador',
@@ -44,25 +43,22 @@ export default function RegisterEmpleador() {
           .map(([key, value]) => `${key}: ${value}`)
           .join('\n'),
           confirmButtonText: 'Cerrar'
-        });
-       
+        });       
       }
-       
+      limpiarForm();     
       
-    });
-    
+    });    
      }}
 
 
   return ( 
-    <div style={{"marginTop":"40px","marginLeft":"80px"}}>       
+    <div>
     <EmpleadorForm 
       data={data} 
-      isButtonDisabled={isButtonDisabled} 
-      setIsButtonDisabled={setIsButtonDisabled} 
       onSubmit={handleSubmit} 
-      
+      setLimpiarForm={setLimpiarForm}
     />
     </div>
+ 
   );
 }
