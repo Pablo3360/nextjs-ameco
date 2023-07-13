@@ -33,6 +33,7 @@ export default function RegisterAfiliado() {
         })
         .catch(err => {
           // alert error 401 --No autorizado o no logueado
+          console.log(err)
     Swal.fire({
       icon: 'error',
       title: 'No Tienes Autorizacion!',
@@ -65,7 +66,7 @@ export default function RegisterAfiliado() {
       showCancelButton: true,
       confirmButtonText: 'Ir a la Ficha del Afiliado',
       cancelButtonText: 'Cerrar',
-      cancelButtonColor: '#d33',
+      cancelButtonColor: '##f8b7ba',
       confirmButtonColor: '#85b9f0', 
       
     }).then(result => {
