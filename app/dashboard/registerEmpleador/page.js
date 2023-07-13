@@ -63,21 +63,14 @@ export default function RegisterAfiliado() {
       text: 'Has Dado de Alta un Nuevo Empleador',
       icon: 'success',
       showCancelButton: true,
-      confirmButtonText: 'Ir a la Ficha del Empleador',
+      confirmButtonText: 'Ir a Alta Afiliado',
       cancelButtonText: 'Cerrar',
       cancelButtonColor: '##f8b7ba',
       confirmButtonColor: '#85b9f0', 
       
     }).then(result => {
       if (result.isConfirmed) {
-        // ficha del empleador
-        Swal.fire({
-          title: 'Ficha Empleador',
-          
-          confirmButtonText: 'Cerrar',
-          confirmButtonColor: '#85b9f0', 
-        });
-      
+        window.location.replace('/dashboard/registerAfiliado');      
      }      
      limpiarForm();      
     });    
