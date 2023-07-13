@@ -1,0 +1,51 @@
+
+.button{
+  border: none;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top:0.3rem;
+  padding-bottom: 0.3rem;  
+  width: 100%;
+  border-radius: 0.5rem;
+  cursor: pointer;  
+}
+
+ .alta {
+  background: #85b9f0;
+  font-size: 1rem;
+ 
+ }
+
+ .volver{
+  background: #f8bfc1;
+  font-size: 1rem;
+ 
+ }
+ 
+ .cerrar{
+  background: #f8bfc1;
+ 
+ }
+ 
+ .alta:active, .volver:active, .cerrar :active {
+  border: none;
+  color: #85b9f0;
+  transform: translateY(0.2rem);
+ }
+
+ .alta:hover:not(:disabled), .cerrar:hover:not(:disabled) {
+  border: none;
+  background-color:lightgray;
+  color: #0632f3;  
+} 
+
+.volver:hover:not(:disabled){
+  border: none;
+  background-color:lightgray;
+  color: #f30669; 
+}
+
+ .button:disabled {
+  cursor: auto;
+  color: grey;
+ }

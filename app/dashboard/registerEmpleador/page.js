@@ -1,67 +1,89 @@
-'use client' //directiva que hay que usar en Next13 cuando usamos useState
-
+'use client' 
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
+//import {useFormik } from 'formik';
 import EmpleadorForm from '../../../components/dashboard/empleador-form/empleador-form';
-import { sendEmpleador } from './sendEmpleador';
+import sendEmpleador  from './sendEmpleador';
 
-export default function RegisterEmpleador() {
+export default function RegisterAfiliado() {
   const router = useRouter();
   const [data, setData] = useState([]);
   let user = useSelector(state => state.user);
-//agregar Recaudadores
+  const [limpiarForm, setLimpiarForm] = useState(() => () => {});
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    if (!user.user) {
+      router.push('/');
+      return;
+    } else {
+      axios
+        .get(`${process.env.NEXT_PUBLIC_URL_API}/users?rol=recaudador`, {
+          headers: {
+            Authorization: 'Bearer ' + user.user.token
+          }
+        })
+        .then(res => {
+          const data = res.data.data;
+          const recaudadores = data;
+          console.log(recaudadores)
+          setData(recaudadores);
+        })
+        .catch(err => {
+          // alert error 401 --No autorizado o no logueado
+    Swal.fire({
+      icon: 'error',
+      title: 'No Tienes Autorizacion!',
+      text: 'O No estas Logueado!',
+      confirmButtonText: 'Cerrar',
+      confirmButtonColor: '#85b9f0',  
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.replace('/dashboard')   
+      }
+    })
+    });
+    }
+  }, []); 
+
+  
 
   const handleSubmit = async values => {
-    setIsButtonDisabled(false);
-    setIsLoading(false);
-    //const response = await sendEmpleador(values, user);
+   
+    const response = await sendEmpleador(values, user);
     //comentar el de arriba y descomentar el de abajo para pruebas sin guardar en BD
-    const response=values;
-    setIsLoading(false);
+    //const response=values;
+   
     if (response) {
 
     Swal.fire({
-      title: 'Resultado positivo',
-      text: 'Empleador creado con éxito',
+      title: 'ALTA CON EXITO!',
+      text: 'Has Dado de Alta un Nuevo Empleador',
       icon: 'success',
       showCancelButton: true,
-      confirmButtonText: 'Ir a la Ficha del Empleador',
-      cancelButtonText: 'Cerrar'
+      confirmButtonText: 'Ir a Alta Afiliado',
+      cancelButtonText: 'Cerrar',
+      cancelButtonColor: '##f8b7ba',
+      confirmButtonColor: '#85b9f0', 
       
     }).then(result => {
       if (result.isConfirmed) {
-        // ficha del empleador
-        Swal.fire({
-          title: 'Ficha del Empleador',
-          text: Object.entries(values)
-          .map(([key, value]) => `${key}: ${value}`)
-          .join('\n'),
-          confirmButtonText: 'Cerrar'
-        });
-       
-      }
-       
-      
-    });
-    
+        window.location.replace('/dashboard/registerAfiliado');      
+     }      
+     limpiarForm();      
+    });    
      }}
 
 
   return ( 
-    <div style={{"marginTop":"40px","marginLeft":"80px"}}>       
+    <div>       
     <EmpleadorForm 
       data={data} 
-      isButtonDisabled={isButtonDisabled} 
-      setIsButtonDisabled={setIsButtonDisabled} 
       onSubmit={handleSubmit} 
-      
+      setLimpiarForm={setLimpiarForm}
     />
     </div>
   );

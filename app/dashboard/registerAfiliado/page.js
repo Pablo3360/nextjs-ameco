@@ -1,12 +1,11 @@
-'use client' //directiva que hay que usar en Next13 cuando usamos useState
-
+'use client' 
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import {useFormik } from 'formik';
+//import {useFormik } from 'formik';
 import AfiliadoForm from '../../../components/dashboard/afiliado-form/afiliado-form';
 import sendData from './sendData'
 
@@ -14,11 +13,11 @@ export default function RegisterAfiliado() {
   const router = useRouter();
   const [data, setData] = useState([]);
   let user = useSelector(state => state.user);
-  //const [limpiarForm, setLimpiarForm] = useState(() => () => {});
+  const [limpiarForm, setLimpiarForm] = useState(() => () => {});
 
   useEffect(() => {
     if (!user.user) {
-      router.push('/login');
+      router.push('/');
       return;
     } else {
       axios
@@ -33,61 +32,67 @@ export default function RegisterAfiliado() {
           setData(empleadores);
         })
         .catch(err => {
-          console.log(err);
-        });
+          // alert error 401 --No autorizado o no logueado
+          console.log(err)
+    Swal.fire({
+      icon: 'error',
+      title: 'No Tienes Autorizacion!',
+      text: 'O No estas Logueado!',
+      confirmButtonText: 'Cerrar',
+      confirmButtonColor: '#85b9f0',  
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.replace('/dashboard')   
+      }
+    })
+    });
     }
   }, []); 
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  
 
   const handleSubmit = async values => {
-    setIsButtonDisabled(false);
-    setIsLoading(false);
+   
     const response = await sendData(values, user);
     //comentar el de arriba y descomentar el de abajo para pruebas sin guardar en BD
     //const response=values;
-    setIsLoading(false);
+   
     if (response) {
 
     Swal.fire({
-      title: 'Resultado positivo',
-      text: 'Afiliado creado con éxito',
+      title: 'ALTA CON EXITO!',
+      text: 'Has Dado de Alta un Nuevo Afiliado',
       icon: 'success',
       showCancelButton: true,
       confirmButtonText: 'Ir a la Ficha del Afiliado',
-      cancelButtonText: 'Cerrar'
+      cancelButtonText: 'Cerrar',
+      cancelButtonColor: '##f8b7ba',
+      confirmButtonColor: '#85b9f0', 
       
     }).then(result => {
       if (result.isConfirmed) {
         // ficha del afiliado
         Swal.fire({
           title: 'Ficha del Afiliado',
-          text: Object.entries(values)
-          .map(([key, value]) => `${key}: ${value}`)
-          .join('\n'),
-          confirmButtonText: 'Cerrar'
+          // text: Object.entries(values)
+          // .map(([key, value]) => `${key}: ${value}`)
+          // .join('\n'),
+          confirmButtonText: 'Cerrar',
+          confirmButtonColor: '#85b9f0', 
         });
-        //limpiarForm();
-      }
-      // else {
-      //  // limpiarForm();
-      // }
-       
       
-    });
-    
+     }      
+     limpiarForm();      
+    });    
      }}
 
 
   return ( 
-    <div style={{"marginTop":"40px","marginLeft":"80px"}}>       
+    <div>       
     <AfiliadoForm 
       data={data} 
-      isButtonDisabled={isButtonDisabled} 
-      setIsButtonDisabled={setIsButtonDisabled} 
       onSubmit={handleSubmit} 
-      // setLimpiarForm={setLimpiarForm}
+      setLimpiarForm={setLimpiarForm}
     />
     </div>
   );

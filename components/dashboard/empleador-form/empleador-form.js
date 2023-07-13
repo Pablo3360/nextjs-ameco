@@ -1,11 +1,12 @@
-// components/RegisterAfiliadoForm.js
+import React from 'react';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
+import Link from 'next/link';
+import Button from '../../common/button/button.js';
+import Title from '@/components/common/title/title.js';
+import styles from '../../common/form/form.module.css'; //css para todos los formularios
 
-import styles from './empleador-form.module.css';
-import React from 'react';
-
-export default function EmpleadorForm({data,isButtonDisabled, setIsButtonDisabled, onSubmit }) {
+export default function EmpleadorForm({data,onSubmit, setLimpiarForm }) {
  //
   const formik = useFormik({
     initialValues: {
@@ -18,14 +19,21 @@ export default function EmpleadorForm({data,isButtonDisabled, setIsButtonDisable
     onSubmit,
     
   });
+  //limpiar formulario
+  useEffect(() => {
+    setLimpiarForm(() => () => formik.resetForm());
+  }, []);
   
+  const handleRecaudadorChange = (e) => {
+    formik.setFieldValue("recaudadorId", e.target.value === "SinEspecificar" ? null : e.target.value);
+  }
 
   return (
-    <div className={styles.principal}>        
-    <h1>ALTA EMPLEADOR</h1>
-  <form onSubmit={formik.handleSubmit}>
+  <div>        
+  <Title text="Alta Empleador"></Title>
+  <form className={styles.container} onSubmit={formik.handleSubmit}>
     <div className={styles.formContainer}>
-      <label htmlFor="razon">*Razon Social: </label>
+      <label htmlFor="razon">Razon Social: </label>
       <input
         type="text"
         id="razon"
@@ -33,8 +41,10 @@ export default function EmpleadorForm({data,isButtonDisabled, setIsButtonDisable
         value={formik.values.razon}
         onChange={formik.handleChange}
         required
-      />     
-      <label htmlFor="cuit">*CUIT: </label>
+      />  
+      </div>
+      <div className={styles.formContainer}>   
+      <label htmlFor="cuit">CUIT: </label>
       <input
         type="text"
         id="cuit"
@@ -44,21 +54,19 @@ export default function EmpleadorForm({data,isButtonDisabled, setIsButtonDisable
         required
       />
     </div>
-
     <div className={styles.formContainer}>
-      <label htmlFor="mail">*Email: </label>
+      <label htmlFor="mail">Email: </label>
       <input
         type="mail"
         id="mail"
         name="mail"
         value={formik.values.mail}
         onChange={formik.handleChange}
-        required
+        
       />
     </div>  
-    
     <div className={styles.formContainer}>
-    <label htmlFor="localidad">*Localidad: </label>
+    <label htmlFor="localidad">Localidad: </label>
       <input
         type="text"
         id="localidad"
@@ -68,24 +76,30 @@ export default function EmpleadorForm({data,isButtonDisabled, setIsButtonDisable
         required
       />
     </div>
-   <div style={{"marginTop":"25px"}}>
+    <div className={styles.formContainer}>
    <label htmlFor="recaudadorId">Recaudador: </label>  
     <select
      id="recaudadorId"
      name="recaudadorId"
      value={formik.values.recaudadorId}
-    onChange={formik.handleChange}
+     onChange={handleRecaudadorChange}
+    required
     >
     <option value="">Selecciona una opción</option>
      {data.map((recaudador) => (
       <option key={recaudador.id} value={recaudador.id}>
-          {recaudador.apellido} - {recaudador.nombre}
+          {recaudador.apellidos} - {recaudador.nombres}
     </option>
     ))}
+    <option value="SinEspecificar">Sin Especificar</option>
     </select>
     </div>
-
-<button className={`${styles.button} ${isButtonDisabled ? 'button-disabled' : ''}`} type="submit">DAR DE ALTA</button>
+    <div className={styles.buttonsContainer}>
+    <Button type="submit" text="alta" >Dar de Alta</Button>
+    <Link href='/dashboard/employers'>
+    <Button  type='button' text="volver" > Volver</Button>
+    </Link>    
+    </div>
 </form>
 </div>
   );
