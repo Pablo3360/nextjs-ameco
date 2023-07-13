@@ -88,7 +88,7 @@ export default function EmpleadorForm({data,onSubmit, setLimpiarForm }) {
     <option value="">Selecciona una opción</option>
      {data.map((recaudador) => (
       <option key={recaudador.id} value={recaudador.id}>
-          {recaudador.apellido} - {recaudador.nombre}
+          {recaudador.apellidos} - {recaudador.nombres}
     </option>
     ))}
     <option value="SinEspecificar">Sin Especificar</option>

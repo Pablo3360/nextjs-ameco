@@ -15,38 +15,39 @@ export default function RegisterAfiliado() {
   let user = useSelector(state => state.user);
   const [limpiarForm, setLimpiarForm] = useState(() => () => {});
 
-  // useEffect(() => {
-  //   if (!user.user) {
-  //     router.push('/');
-  //     return;
-  //   } else {
-  //     axios
-  //       .get(`${process.env.NEXT_PUBLIC_URL_API}/recaudadores`, {
-  //         headers: {
-  //           Authorization: 'Bearer ' + user.user.token
-  //         }
-  //       })
-  //       .then(res => {
-  //         const data = res.data.data;
-  //         const recaudadores = data;
-  //         setData(recaudadores);
-  //       })
-  //       .catch(err => {
-  //         // alert error 401 --No autorizado o no logueado
-  //   Swal.fire({
-  //     icon: 'error',
-  //     title: 'No Tienes Autorizacion!',
-  //     text: 'O No estas Logueado!',
-  //     confirmButtonText: 'Cerrar',
-  //     confirmButtonColor: '#85b9f0',  
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       window.location.replace('/dashboard')   
-  //     }
-  //   })
-  //   });
-  //   }
-  // }, []); 
+  useEffect(() => {
+    if (!user.user) {
+      router.push('/');
+      return;
+    } else {
+      axios
+        .get(`${process.env.NEXT_PUBLIC_URL_API}/users?rol=recaudador`, {
+          headers: {
+            Authorization: 'Bearer ' + user.user.token
+          }
+        })
+        .then(res => {
+          const data = res.data.data;
+          const recaudadores = data;
+          console.log(recaudadores)
+          setData(recaudadores);
+        })
+        .catch(err => {
+          // alert error 401 --No autorizado o no logueado
+    Swal.fire({
+      icon: 'error',
+      title: 'No Tienes Autorizacion!',
+      text: 'O No estas Logueado!',
+      confirmButtonText: 'Cerrar',
+      confirmButtonColor: '#85b9f0',  
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.replace('/dashboard')   
+      }
+    })
+    });
+    }
+  }, []); 
 
   
 
