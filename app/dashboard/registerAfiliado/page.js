@@ -1,5 +1,4 @@
-'use client' //directiva que hay que usar en Next13 cuando usamos useState
-
+'use client' 
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
@@ -33,8 +32,19 @@ export default function RegisterAfiliado() {
           setData(empleadores);
         })
         .catch(err => {
-          console.log(err);
-        });
+          // alert error 401 --No autorizado o no logueado
+    Swal.fire({
+      icon: 'error',
+      title: 'No Tienes Autorizacion!',
+      text: 'O No estas Logueado!',
+      confirmButtonText: 'Cerrar',
+      confirmButtonColor: '#85b9f0',  
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.replace('/dashboard')   
+      }
+    })
+    });
     }
   }, []); 
 
@@ -54,17 +64,20 @@ export default function RegisterAfiliado() {
       icon: 'success',
       showCancelButton: true,
       confirmButtonText: 'Ir a la Ficha del Afiliado',
-      cancelButtonText: 'Cerrar'
+      cancelButtonText: 'Cerrar',
+      cancelButtonColor: '#d33',
+      confirmButtonColor: '#85b9f0', 
       
     }).then(result => {
       if (result.isConfirmed) {
         // ficha del afiliado
         Swal.fire({
-          title: 'Ficha del Empleador',
-          text: Object.entries(values)
-          .map(([key, value]) => `${key}: ${value}`)
-          .join('\n'),
-          confirmButtonText: 'Cerrar'
+          title: 'Ficha del Afiliado',
+          // text: Object.entries(values)
+          // .map(([key, value]) => `${key}: ${value}`)
+          // .join('\n'),
+          confirmButtonText: 'Cerrar',
+          confirmButtonColor: '#85b9f0', 
         });
       
      }      

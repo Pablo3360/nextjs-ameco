@@ -2,7 +2,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation.js';
+import Link from 'next/link';
 import Button from '../../common/button/button.js';
 import Title from '@/components/common/title/title.js';
 import styles from '../../common/form/form.module.css'; //css para todos los formularios
@@ -10,7 +10,7 @@ import styles from '../../common/form/form.module.css'; //css para todos los for
 
 export default function AfiliadoForm({data, onSubmit, setLimpiarForm }) {
   
-  const router = useRouter();
+  
   const formik = useFormik({
     initialValues: {
       apellidos: '',
@@ -27,18 +27,19 @@ export default function AfiliadoForm({data, onSubmit, setLimpiarForm }) {
     },
     onSubmit,
   });
+
+  const handleEstadoCivilChange = (e) => {
+    formik.setFieldValue("estadoCivil", e.target.value === "SinEspecificar" ? null : e.target.value);
+  }
+  const handleSexoChange = (e) => {
+    formik.setFieldValue("sexo", e.target.value === "SinEspecificar" ? null : e.target.value);
+  }
    //limpiar formulario
   useEffect(() => {
     setLimpiarForm(() => () => formik.resetForm());
   }, []);
 
-  const handleBack = () => {
-   console.log("boton volver")
-    // router.push('/dashboard/affiliates');
-    
-  };
-
-
+ 
   return (
     <div>        
     <Title text="Alta Afiliado"></Title>
@@ -95,13 +96,14 @@ export default function AfiliadoForm({data, onSubmit, setLimpiarForm }) {
         id="estadoCivil"
         name="estadoCivil"
         value={formik.values.estadoCivil}
-        onChange={formik.handleChange}
+        // onChange={formik.handleChange}
+        onChange={handleEstadoCivilChange}
       >
         <option value="">Selecciona una opción</option>
         <option value="soltero">Soltero/a</option>
         <option value="casado">Casado/a</option>
         <option value="unionDeHecho">Unión de Hecho</option>
-        <option value={null}>Sin especificar</option>
+        <option value="SinEspecificar">Sin Especificar</option>
       </select>
     </div>
     <div className={styles.formContainer}>  
@@ -110,13 +112,13 @@ export default function AfiliadoForm({data, onSubmit, setLimpiarForm }) {
         id="sexo"
         name="sexo"
         value={formik.values.sexo}
-        onChange={formik.handleChange}
+        onChange={handleSexoChange}
         required
       >
         <option value="">Selecciona una opción</option>
         <option value="varon">Varón</option>
         <option value="mujer">Mujer</option>
-        <option value={null}>Sin especificar</option>
+        <option value="SinEspecificar">Sin Especificar</option>
       </select>
       
     </div>
@@ -184,7 +186,9 @@ export default function AfiliadoForm({data, onSubmit, setLimpiarForm }) {
     </div>
     <div className={styles.buttonsContainer}>
     <Button type="submit" text="alta" >Dar de Alta</Button>
-    <Button  type='button' text="volver" onChange={handleBack}> Volver</Button>
+    <Link href='/dashboard/affiliates'>
+    <Button  type='button' text="volver" > Volver</Button>
+    </Link>    
     </div>
 </form>
 </div>
