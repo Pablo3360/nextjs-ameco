@@ -25,7 +25,7 @@ export default async function sendData(values, user) {
       Swal.fire({
         icon: 'error',
         title:"Error",
-        html: `<h3>El Afiliado con DNI ${values.dni} ya existe</h3>`,
+        html: `<h3>El Afiliado con DNI ${values.dni}</h3>`,
         text: 'YA EXISTE',
         confirmButtonColor: '#85b9f0',        
      

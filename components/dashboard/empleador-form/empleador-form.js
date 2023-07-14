@@ -1,10 +1,10 @@
-// components/RegisterAfiliadoForm.js
+import React from 'react';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
-import styles from '../../common/form/form.module.css'; //css para todos los formularios
+import Link from 'next/link';
 import Button from '../../common/button/button.js';
 import Title from '@/components/common/title/title.js';
-import React from 'react';
+import styles from '../../common/form/form.module.css'; //css para todos los formularios
 
 export default function EmpleadorForm({data,onSubmit, setLimpiarForm }) {
  //
@@ -24,6 +24,9 @@ export default function EmpleadorForm({data,onSubmit, setLimpiarForm }) {
     setLimpiarForm(() => () => formik.resetForm());
   }, []);
   
+  const handleRecaudadorChange = (e) => {
+    formik.setFieldValue("recaudadorId", e.target.value === "SinEspecificar" ? null : e.target.value);
+  }
 
   return (
   <div>        
@@ -59,7 +62,7 @@ export default function EmpleadorForm({data,onSubmit, setLimpiarForm }) {
         name="mail"
         value={formik.values.mail}
         onChange={formik.handleChange}
-        required
+        
       />
     </div>  
     <div className={styles.formContainer}>
@@ -79,20 +82,23 @@ export default function EmpleadorForm({data,onSubmit, setLimpiarForm }) {
      id="recaudadorId"
      name="recaudadorId"
      value={formik.values.recaudadorId}
-    onChange={formik.handleChange}
+     onChange={handleRecaudadorChange}
+    required
     >
     <option value="">Selecciona una opción</option>
      {data.map((recaudador) => (
       <option key={recaudador.id} value={recaudador.id}>
-          {recaudador.apellido} - {recaudador.nombre}
+          {recaudador.apellidos} - {recaudador.nombres}
     </option>
     ))}
+    <option value="SinEspecificar">Sin Especificar</option>
     </select>
     </div>
-
     <div className={styles.buttonsContainer}>
     <Button type="submit" text="alta" >Dar de Alta</Button>
-    <Button type="" text="volver" >Volver</Button>
+    <Link href='/dashboard/employers'>
+    <Button  type='button' text="volver" > Volver</Button>
+    </Link>    
     </div>
 </form>
 </div>
