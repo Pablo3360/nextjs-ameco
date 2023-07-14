@@ -1,4 +1,3 @@
-// components/RegisterAfiliadoForm.js
 import React from 'react';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
@@ -8,8 +7,7 @@ import Title from '@/components/common/title/title.js';
 import styles from '../../common/form/form.module.css'; //css para todos los formularios
 
 
-export default function AfiliadoForm({data, onSubmit, setLimpiarForm }) {
-  
+export default function TitularForm({data, onSubmit, setLimpiarForm }) {  
   
   const formik = useFormik({
     initialValues: {

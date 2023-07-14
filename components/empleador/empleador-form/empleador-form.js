@@ -2,9 +2,10 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import styles from '../../common/form/form.module.css'; //css para todos los formularios
 import Button from '../../common/button/button.js';
 import Title from '@/components/common/title/title.js';
-import styles from '../../common/form/form.module.css'; //css para todos los formularios
+
 
 export default function EmpleadorForm({data,onSubmit, setLimpiarForm }) {
  //
@@ -77,7 +78,7 @@ export default function EmpleadorForm({data,onSubmit, setLimpiarForm }) {
       />
     </div>
     <div className={styles.formContainer}>
-   <label htmlFor="recaudadorId">Recaudador: </label>  
+    <label htmlFor="recaudadorId">Recaudador: </label>  
     <select
      id="recaudadorId"
      name="recaudadorId"
