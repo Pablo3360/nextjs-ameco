@@ -76,7 +76,6 @@ export default function Login(){
         <div className={contain} >
             <h1 style={{margin: "10px 0"}} >Iniciar Sesión</h1>
             <div className={inputs} onClick={() => setLoad(false)} >
-                {/* { error === "" ? "" : <p style={{color: "red", margin: "10px 0"}} >{error}</p>} */}
                 <div className={inputContainer}>
                     <input onChange={handlerChange} name="mail" placeholder="mail" className={inputField} type="mail" required={true}/>
                     <label htmlFor="input-field" className={inputLabel}>Enter text</label>

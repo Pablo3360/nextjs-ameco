@@ -27,3 +27,16 @@ export function dateToNumber(fecha) {
 
     return numero;
 }
+//adiviná
+export function numberToDate(numero) {
+    var fecha = new Date(numero);
+    var dia = fecha.getDate();
+    var mes = fecha.getMonth() + 1;
+    var año = fecha.getFullYear();
+  
+    dia = ("0" + dia).slice(-2);
+    mes = ("0" + mes).slice(-2);
+    
+    var formatoFecha = dia + "/" + mes + "/" + año;
+    return formatoFecha;
+  }

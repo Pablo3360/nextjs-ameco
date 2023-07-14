@@ -5,15 +5,17 @@ import { formatDate,dateToNumber, handleLogOut } from '@/app/functions'
 import { useSelector } from 'react-redux'
 import { useState,useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Loader from '@/components/common/pageLoader/loader'
 import axios from 'axios'
 
 export default function Affiliates(){
     const dispatch =useDispatch();
     const router=useRouter()
     const [data,setData]=useState('');
+    const [isLoading,setIsLoading]=useState(true);
     const user = useSelector(state=>state.user.user)
     let token=user?.token
-    
+
     useEffect(()=>{
         if (token) {
             axios.get(`${process.env.NEXT_PUBLIC_URL_API}/afiliados`,{
@@ -22,7 +24,7 @@ export default function Affiliates(){
                 }
             }).then(res=>{
                 const data=res.data.data;
-                console.log(data)
+                console.log('datax :',data)
                 const tableData=data.map(e=>{
                     return {
                         nombreCompleto: e.apellidos+', '+e.nombres,
@@ -31,8 +33,10 @@ export default function Affiliates(){
                         estadoCivil:e.estadoCivil,
                         empleador:e.empleador.razon,
                         FechaDeAlta:dateToNumber(formatDate(e.createdAt)),
+                        id:e.id,
                     }
                 })
+                setIsLoading(false)
                 setData(tableData)
             }).catch(err=>{
                 console.log('axios error :',err)
@@ -43,7 +47,9 @@ export default function Affiliates(){
 
     return (
         <div style={{"margin":"40px"}}>
-            <AffiliatesTable data={data}/>
+            {
+                isLoading?<Loader/>:<AffiliatesTable data={data}/>
+            }
         </div>
     )    
 }

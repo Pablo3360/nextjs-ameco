@@ -1,0 +1,22 @@
+export const columns = [
+    {
+        header:'Apellidos',
+        accessorKey:'apellidos',
+        footer:'Apellidos',
+    },
+    {
+        header:'Nombres',
+        accessorKey:'nombres',
+        footer:'Nombres',
+    },
+    {
+        header:'Nacimiento',
+        accessorKey:'nacimiento',
+        footer:'Nacimiento',
+    },
+    {
+        header:'Acciones',
+        accessorKey:'actions',
+        footer:'Acciones',
+    },
+]

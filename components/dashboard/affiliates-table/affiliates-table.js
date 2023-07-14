@@ -14,22 +14,9 @@ import {
     getFacetedUniqueValues,
     getFacetedMinMaxValues,
 } from '@tanstack/react-table'
-
+import { numberToDate } from '@/app/functions'
 
 export default function AffiliatesTable({data}) {
-    function numberToDate(numero) {
-      var fecha = new Date(numero);
-      var dia = fecha.getDate();
-      var mes = fecha.getMonth() + 1;
-      var anio = fecha.getFullYear();
-    
-      // Asegurarse de que los componentes tengan 2 digitos:
-      dia = ("0" + dia).slice(-2);
-      mes = ("0" + mes).slice(-2);
-      
-      var formatoFecha = dia + "/" + mes + "/" + anio;
-      return formatoFecha;
-    }
 
     const [filter,setFilter]=useState('')
 
@@ -91,7 +78,7 @@ export default function AffiliatesTable({data}) {
                 {row.getVisibleCells().map(cell => {
                   return (
                     <td key={cell.id} className={styles.cell}> 
-                    { cell.column.columnDef.accessorKey==='actions'?<Actions/>:
+                    { cell.column.columnDef.accessorKey==='actions'?<Actions affiliateId={cell.row.original.id}/>:
                       cell.column.columnDef.accessorKey==='nacimiento' || cell.column.columnDef.accessorKey==='FechaDeAlta'?
                       flexRender(
                         numberToDate(cell.getValue()),

@@ -1,0 +1,17 @@
+.container{
+    display: flex;
+    width: 130px;
+    padding: 0;
+    justify-content: space-between;
+    margin: auto;
+}
+.icon{
+    width: 36px;
+    transition: 500ms;
+    border-radius: 50px;
+    padding: 5px;
+}
+.icon:hover{
+    cursor: pointer;
+    background-color: rgb(196, 196, 196);
+}

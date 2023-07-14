@@ -6,3 +6,7 @@
 .dashboard-layout{
   display: flex;
 }
+.body{
+  margin-left: 50px;
+  margin-top: 30px;
+}
