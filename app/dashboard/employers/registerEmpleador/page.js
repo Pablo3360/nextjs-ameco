@@ -6,10 +6,10 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 //import {useFormik } from 'formik';
-import EmpleadorForm from '../../../components/dashboard/empleador-form/empleador-form';
+import EmpleadorForm from '../../../../components/empleador/empleador-form/empleador-form';
 import sendEmpleador  from './sendEmpleador';
 
-export default function RegisterAfiliado() {
+export default function RegisterEmpleador() {
   const router = useRouter();
   const [data, setData] = useState([]);
   let user = useSelector(state => state.user);
@@ -71,7 +71,7 @@ export default function RegisterAfiliado() {
       
     }).then(result => {
       if (result.isConfirmed) {
-        window.location.replace('/dashboard/registerAfiliado');      
+        window.location.replace('/dashboard/registerTitular');      
      }      
      limpiarForm();      
     });    
