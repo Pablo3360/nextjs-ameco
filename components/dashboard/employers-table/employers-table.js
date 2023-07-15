@@ -40,7 +40,6 @@ export default function EmployersTable({data}) {
     )
     return (
     <div>
-        <h1>Tabla de afiliados</h1>
         <input type="text"
           value={filter} 
           style={{"margin":"10px"}} 
