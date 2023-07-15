@@ -1,18 +1,22 @@
-.dropdown {
+  .dropdown {
     position: relative;
     display: inline-block;
   }
   
   .dropdownToggle {
-    background-color: #f8f8f8;
-    color: #333;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #EFEFEF;
+    color: #0A3143;
+    font-size: larger;
     border: 1px solid #ccc;
     padding: 8px 12px;
     cursor: pointer;
+    transition: 500ms;
   }
   
   .dropdownToggle:hover {
-    background-color: #e0e0e0;
+    background-color: #CECFC9;
   }
   
   .dropdownMenu {
@@ -20,7 +24,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #fff;
+    background-color: #EFEFEF;
     border: 1px solid #ccc;
     padding: 0;
     margin: 0;

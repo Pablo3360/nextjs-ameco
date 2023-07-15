@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
-import agregar from '../../../app/icons/actions/agregar.png'
-import ficha from '../../../app/icons/actions/ficha.png'
-import eliminar from '../../../app/icons/actions/eliminar.png'
+import agregar from '@/app/icons/actions/agregar.png'
+import ficha from '@/app/icons/actions/ficha.png'
+import eliminar from '@/app/icons/actions/eliminar.png'
 import styles from '../actions.module.css'
 
 export default function Actions({affiliateId}) {

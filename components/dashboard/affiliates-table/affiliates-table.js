@@ -1,10 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import styles from './affiliates-table.module.css'
+import styles from '../table.module.css'
 import {columns} from './columns'
 import Filter from './filter'
 import Actions from './actions'
+import SearchBar from '@/components/common/SearchBar/searchBar'
 import {
     useReactTable,
     flexRender,
@@ -15,6 +16,7 @@ import {
     getFacetedMinMaxValues,
 } from '@tanstack/react-table'
 import { numberToDate } from '@/app/functions'
+import lupa from '@/app/icons/lupa.png'
 
 export default function AffiliatesTable({data}) {
 
@@ -40,14 +42,9 @@ export default function AffiliatesTable({data}) {
     )
     return (
     <div>
-        <h1>Tabla de afiliados</h1>
-        <input type="text"
-          value={filter} 
-          style={{"margin":"10px"}} 
-          placeholder='Busqueda general...'
-          onChange={(e)=>{
-            setFilter(e.target.value)
-          }} 
+        <SearchBar 
+          value={filter}
+          onChange = {(e)=>{setFilter(e.target.value)}}
         />
         <h1>({table.getFilteredRowModel().rows.length})</h1>
         <table className={styles.table}>
@@ -62,6 +59,16 @@ export default function AffiliatesTable({data}) {
                             header.getContext()
                         )
                     }
+                    </th>
+                ))}
+                </tr>
+            ))}
+            </thead>
+            <thead>
+            {table.getHeaderGroups().map(headerGroup => (
+                <tr key={headerGroup.id}>
+                {headerGroup.headers.map(header => (
+                    <th key={header.id} className={styles.headerCell}>
                    {
                     header.id==='empleador'||header.id==='estadoCivil'||header.id==='nacimiento'||header.id==='FechaDeAlta'?
                     <Filter column={header.column} table={table} />:

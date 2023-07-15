@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux'
 import { useState,useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Loader from '@/components/common/pageLoader/loader'
+import Title from '@/components/common/title/title'
+import TitleBar from '@/components/common/TitleBar/TitleBar'
+import Button from '@/components/common/button/button'
 import axios from 'axios'
 
 export default function Affiliates(){
@@ -46,9 +49,16 @@ export default function Affiliates(){
     },[token])
 
     return (
-        <div style={{"margin":"40px"}}>
+        <div>
+            <TitleBar>
+                <h1>Tabla de afiliados</h1>
+                <Button text='alta' onClick={()=>{router.push('affiliates/registerAfiliado')}}>Alta de afiliado</Button>
+            </TitleBar>
             {
-                isLoading?<Loader/>:<AffiliatesTable data={data}/>
+                isLoading?<Loader/>:
+                <div>
+                    <AffiliatesTable data={data}/>
+                </div>
             }
         </div>
     )    

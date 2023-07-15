@@ -7,12 +7,10 @@ import { useSelector , useDispatch } from "react-redux"
 import { useState } from "react"
 import AffiliateInfo from "@/components/dashboard/affiliate-details/affiliate-details"
 import ParticipantesTable from "@/components/dashboard/participantes-table/participantes-table"
-import Title from "@/components/common/title/title"
+import TitleBar from "@/components/common/TitleBar/TitleBar"
 import Button from "@/components/common/button/button"
 import Loader from "@/components/common/pageLoader/loader"
 import { handleLogOut } from "@/app/functions"
-
-import styles from './page.module.css'
 
 export default function AffiliateDetails({params}) {
     const user = useSelector(state=>state.user.user)
@@ -41,20 +39,18 @@ export default function AffiliateDetails({params}) {
 
     return (
     <div>
-        <div className={styles.topBar}>
-        <Title text={'Ficha Afiliado'}/>
-            <Button text='alta'>
-                Actualizar
-            </Button>
-        </div>
+        <TitleBar>
+            <h1>Ficha afiliado</h1>
+            <Button text='alta'>Actualizar</Button>
+        </TitleBar>
         {
             isLoading?<Loader/>:
             <div>
                 <AffiliateInfo affiliateData={affiliateData}/>
-                <div className={styles.separador}>
-                    <h1 className={styles.h1}>Participantes</h1>
+                <TitleBar>
+                    <h1>Participantes</h1>
                     <Button text="alta">Alta participante</Button>
-                </div>
+                </TitleBar>
             </div>
         }     
         {
