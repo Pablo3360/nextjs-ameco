@@ -23,9 +23,9 @@ export default async function sendParticipante(values, user) {
       //alert error 400
       Swal.fire({
         icon: 'error',
-        title:"Error",
-        html: `<h3>El Participante con DNI ${values.dni} ya existe</h3>`,
-        text: 'YA EXISTE',
+        title:"Algo salio Mal",
+        // html: `<h3>El Participante con DNI ${values.dni} ya existe</h3>`,
+        text: 'Intenta de Nuevo!',
         confirmButtonColor: '#85b9f0',        
      
       });
@@ -47,7 +47,7 @@ export default async function sendParticipante(values, user) {
   } else{
     Swal.fire({
       icon: 'error',
-      title: 'Algo no salio bien!',
+      title: 'Algo salio mal!',
       text: 'Intenta de Nuevo!',
       confirmButtonText: 'Cerrar',
       confirmButtonColor: '#85b9f0',  

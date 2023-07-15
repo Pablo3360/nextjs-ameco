@@ -24,9 +24,9 @@ export default async function sendDataEmpleador(values, user) {
       //alert error 400
       Swal.fire({
         icon: 'error',
-        title:"Error",
-        html: `<h3>El Empleador con CUIT ${values.cuit}</h3>`,
-        text: 'YA EXISTE',
+        title:"Algo Salio Mal",
+        // html: `<h3>El Empleador con CUIT ${values.cuit}</h3>`,
+        text: 'Intenta de Nuevo!',
         confirmButtonColor: '#85b9f0',        
      
       });

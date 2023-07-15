@@ -52,9 +52,9 @@ export default function RegisterTitular() {
 
   const handleSubmit = async values => {
    
-    //const response = await sendData(values, user);
+    const response = await sendData(values, user);
     //comentar el de arriba y descomentar el de abajo para pruebas sin guardar en BD
-    const response=values;
+    //const response=values;
    
     if (response) {
 
@@ -71,11 +71,11 @@ export default function RegisterTitular() {
     }).then(result => {
       if (result.isConfirmed) {
         // ficha del afiliado
-        Swal.fire({
-          title: 'Ficha del Afiliado',
-          confirmButtonText: 'Cerrar',
-          confirmButtonColor: '#85b9f0', 
-        });
+        // Swal.fire({
+        //   title: 'Ficha del Afiliado',
+        //   confirmButtonText: 'Cerrar',
+        //   confirmButtonColor: '#85b9f0', 
+        // });
       
      }      
      limpiarForm();      

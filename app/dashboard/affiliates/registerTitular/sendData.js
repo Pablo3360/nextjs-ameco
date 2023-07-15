@@ -24,9 +24,9 @@ export default async function sendData(values, user) {
       //alert error 400
       Swal.fire({
         icon: 'error',
-        title:"Error",
-        html: `<h3>El Afiliado con DNI ${values.dni}</h3>`,
-        text: 'YA EXISTE',
+        title:"Algo Salio Mal",
+        // html: `<h3>El Afiliado con DNI ${values.dni}</h3>`,
+        text: 'Intenta de Nuevo',
         confirmButtonColor: '#85b9f0',        
      
       });

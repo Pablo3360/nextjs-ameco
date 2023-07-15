@@ -2,13 +2,14 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation.js';
 import Button from '../../common/button/button.js';
 import Title from '@/components/common/title/title.js';
 import styles from '../../common/form/form.module.css'; //css para todos los formularios
 
 
 export default function TitularForm({data, onSubmit, setLimpiarForm }) {  
-  
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       apellidos: '',
@@ -94,13 +95,12 @@ export default function TitularForm({data, onSubmit, setLimpiarForm }) {
         id="estadoCivil"
         name="estadoCivil"
         value={formik.values.estadoCivil}
-        // onChange={formik.handleChange}
         onChange={handleEstadoCivilChange}
       >
         <option value="">Selecciona una opción</option>
         <option value="soltero">Soltero/a</option>
         <option value="casado">Casado/a</option>
-        <option value="unionDeHecho">Unión de Hecho</option>
+        <option value="unionHecho">Unión de Hecho</option>
         <option value="SinEspecificar">Sin Especificar</option>
       </select>
     </div>
@@ -184,9 +184,10 @@ export default function TitularForm({data, onSubmit, setLimpiarForm }) {
     </div>
     <div className={styles.buttonsContainer}>
     <Button type="submit" text="alta" >Dar de Alta</Button>
-    <Link href='/dashboard/affiliates'>
+    {/* <Link href='/dashboard/affiliates'>
     <Button  type='button' text="volver" > Volver</Button>
-    </Link>    
+    </Link>     */}
+     <Button  type='button' text="volver" onClick={() => router.back()}> Volver</Button>
     </div>
 </form>
 </div>
