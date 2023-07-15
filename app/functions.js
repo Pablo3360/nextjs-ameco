@@ -1,4 +1,12 @@
+import { logOut } from "./store/userSlice";
 
+export function handleLogOut(dispatch,router){
+    // router=useRouter();
+    // dispatch=useDispatch()
+    dispatch(logOut());
+    localStorage.clear();
+    router.push('/')
+  }
 //transforma fecha tal que 1992-01-18T00:00:00.000Z => 18/01/1992
 export function formatDate(date){
     const fechaStr = date;
@@ -19,3 +27,16 @@ export function dateToNumber(fecha) {
 
     return numero;
 }
+//adiviná
+export function numberToDate(numero) {
+    var fecha = new Date(numero);
+    var dia = fecha.getDate();
+    var mes = fecha.getMonth() + 1;
+    var año = fecha.getFullYear();
+  
+    dia = ("0" + dia).slice(-2);
+    mes = ("0" + mes).slice(-2);
+    
+    var formatoFecha = dia + "/" + mes + "/" + año;
+    return formatoFecha;
+  }

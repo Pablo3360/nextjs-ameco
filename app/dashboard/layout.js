@@ -9,8 +9,10 @@ export default function DashboardLayout({
             <AuthProvider>
             <Header/>
             <div className="dashboard-layout">
-                <Nav/>
+              <Nav/>
+                <div className="body">
                   {children}
+                </div>
             </div>
             </AuthProvider>
       </section>
