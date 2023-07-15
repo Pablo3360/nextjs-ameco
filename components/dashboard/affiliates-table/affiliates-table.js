@@ -137,9 +137,9 @@ export default function AffiliatesTable({data}) {
                 </button>
             </div>
         <span className="flex items-center gap-1">
-          <div>Page</div>
+          <span>Página  </span>
           <strong>
-            {table.getState().pagination.pageIndex + 1} of{' '}
+            {table.getState().pagination.pageIndex + 1} de{' '}
             {table.getPageCount()}
           </strong>
         </span>

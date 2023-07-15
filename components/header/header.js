@@ -5,6 +5,7 @@ import styles from './header.module.css'
 import { useSelector , useDispatch } from 'react-redux'
 import { useRouter } from 'next/navigation'
 import { handleLogOut } from '@/app/functions'
+import Swal from 'sweetalert2'
 
 export default function Header() {
     const router=useRouter()
@@ -21,7 +22,17 @@ export default function Header() {
                     <div className={styles.dropdownContent}>
                         <a >Perfil</a>
                         <a >Opciones</a>
-                        <a onClick={()=>{handleLogOut(dispatch,router)}}>Cerrar sesión</a>
+                        <a onClick={()=>{Swal.fire({
+                            icon:'question',
+                            title: 'Desea cerrar sesion?',
+                            showCancelButton: true,
+                            cancelButtonText:'Cancelar',
+                        }).then(res=>{
+                            if (res.isConfirmed){
+                                handleLogOut(dispatch,router)
+                            }
+                        })}}>Cerrar sesión</a>
+                        {/* <a onClick={()=>{handleLogOut(dispatch,router)}}>Cerrar sesión</a> */}
                     </div>
                 </div>:
                 null
