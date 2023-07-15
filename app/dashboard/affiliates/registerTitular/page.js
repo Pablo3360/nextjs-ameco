@@ -52,9 +52,9 @@ export default function RegisterTitular() {
 
   const handleSubmit = async values => {
    
-    const response = await sendData(values, user);
+    //const response = await sendData(values, user);
     //comentar el de arriba y descomentar el de abajo para pruebas sin guardar en BD
-    //const response=values;
+    const response=values;
    
     if (response) {
 

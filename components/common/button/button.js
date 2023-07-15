@@ -20,7 +20,12 @@ export default function Button(props) {
 
   return (
     <div>
-      <button className={buttonClass} type={props.type}>{props.children}</button>
+      <button 
+      className={buttonClass} 
+      type={props.type}
+      onClick={props.onClick}
+      >
+        {props.children}</button>
     </div>
   )
 }

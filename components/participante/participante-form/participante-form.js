@@ -1,16 +1,18 @@
 // components/RegisterAfiliadoForm.js
+'use client'
 import React from 'react';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import  { useRouter } from 'next/navigation.js';
 import Button from '../../common/button/button.js';
 import Title from '@/components/common/title/title.js';
 import styles from '../../common/form/form.module.css'; //css para todos los formularios
 
 
-export default function ParticipanteForm({data, onSubmit, setLimpiarForm }) {
-  
-  
+export default function ParticipanteForm({id, nombre, apellido, onSubmit, setLimpiarForm }) {
+ 
+  const router = useRouter();    
   const formik = useFormik({
     initialValues: {
       apellidos: '',
@@ -23,31 +25,33 @@ export default function ParticipanteForm({data, onSubmit, setLimpiarForm }) {
     },
     onSubmit,
   });
-
  
+
   const handleSexoChange = (e) => {
     formik.setFieldValue("sexo", e.target.value === "SinEspecificar" ? null : e.target.value);
   }
+  useEffect(() => {
+    formik.setFieldValue('afiliadoId', id);
+  }, [id]);
    //limpiar formulario
   useEffect(() => {
     setLimpiarForm(() => () => formik.resetForm());
   }, []);
 
- 
-  return (
+   return (
     <div  style={{ marginLeft:"5%" }}>        
     <Title text="Alta Participante"></Title>
     <form className={styles.container}onSubmit={formik.handleSubmit}>
     <div  className={`${styles.formContainer} ${styles.formBorder}`}>      
-    <label htmlFor="afiliadoId">Participante del Afiliado: </label> 
+    <h3 style={{marginRight:'4%', textAlign:'end'}}htmlFor="afiliadoId">Participante del Afiliado: </h3> 
     <input
-        type="text"
-        id="afiliadoId"
-        name="afiliadoId"
-        value={formik.values.afiliadoId}
-        onChange={formik.handleChange}
-        required
-      />       
+      type="hidden"
+      name="afiliadoId"
+      value={id}
+     
+    />
+    <h3 >{`${nombre} ${apellido}`}</h3>
+         
     </div>
     <div className={styles.formContainer}>
       <label htmlFor="apellidos">Apellido: </label>
@@ -129,9 +133,10 @@ export default function ParticipanteForm({data, onSubmit, setLimpiarForm }) {
      
     <div className={styles.buttonsContainer}>
     <Button type="submit" text="alta" >Dar de Alta</Button>
-    <Link href='/dashboard/affiliates'>
+    {/* <Link href={'/dashboard/affiliates/details'}>
     <Button  type='button' text="volver" > Volver</Button>
-    </Link>    
+    </Link>     */}
+    <Button  type='button' text="volver" onClick={() => router.back()}> Volver</Button>
     </div>
 </form>
 </div>

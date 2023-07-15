@@ -32,6 +32,7 @@ export default async function sendParticipante(values, user) {
     }
 } else{
     // alert error 401 --No autorizado o no logueado
+    if(401){
     Swal.fire({
       icon: 'error',
       title: 'No Tienes Autorizacion!',
@@ -43,6 +44,20 @@ export default async function sendParticipante(values, user) {
         window.location.replace('/dashboard/affiliates')   
       }
     });
+  } else{
+    Swal.fire({
+      icon: 'error',
+      title: 'Algo no salio bien!',
+      text: 'Intenta de Nuevo!',
+      confirmButtonText: 'Cerrar',
+      confirmButtonColor: '#85b9f0',  
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.replace('/dashboard/affiliates')   
+      }
+    });
+
+  }
 }
   }
   

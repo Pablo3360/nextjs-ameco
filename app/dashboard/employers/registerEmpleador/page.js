@@ -53,9 +53,9 @@ export default function RegisterEmpleador() {
 
   const handleSubmit = async values => {
    
-    const response = await sendEmpleador(values, user);
+    //const response = await sendEmpleador(values, user);
     //comentar el de arriba y descomentar el de abajo para pruebas sin guardar en BD
-    //const response=values;
+    const response=values;
    
     if (response) {
 

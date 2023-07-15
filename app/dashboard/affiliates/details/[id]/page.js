@@ -16,6 +16,7 @@ import styles from './page.module.css'
 
 export default function AffiliateDetails({params}) {
     const user = useSelector(state=>state.user.user)
+    
     const router=useRouter()
     const dispatch=useDispatch()
     let token=user?.token
@@ -39,6 +40,14 @@ export default function AffiliateDetails({params}) {
         }
     },[token])
 
+    const handleClick = (e) => {
+        console.log(affiliateData.id)
+       localStorage.setItem('affiliateId', affiliateData.id);   
+       localStorage.setItem('nombreAfiliado', affiliateData.nombres);
+       localStorage.setItem('apellidoAfiliado', affiliateData.apellidos); 
+       router.push('/dashboard/affiliates/registerParticipante');
+      }
+
     return (
     <div>
         <div className={styles.topBar}>
@@ -53,7 +62,7 @@ export default function AffiliateDetails({params}) {
                 <AffiliateInfo affiliateData={affiliateData}/>
                 <div className={styles.separador}>
                     <h1 className={styles.h1}>Participantes</h1>
-                    <Button text="alta">Alta participante</Button>
+                    <Button text="alta" onClick={() => handleClick(affiliateData.id)}>Alta participante</Button>
                 </div>
             </div>
         }     
