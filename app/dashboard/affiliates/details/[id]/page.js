@@ -29,7 +29,6 @@ export default function AffiliateDetails({params}) {
             }).then((res)=>{
                 setIsLoading(false)
                 setAffiliateData(res.data.data)
-                console.log('res data :',res.data.data)
             }).catch(err=>{
                 console.log('axios error :',err)
                 handleLogOut(dispatch,router)

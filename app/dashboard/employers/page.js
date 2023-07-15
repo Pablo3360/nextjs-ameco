@@ -27,7 +27,6 @@ export default function Employers() {
                 }
             }).then(res=>{
                 const data=res.data.data;
-                console.log ('empleadores :',data)
                 const tableData=data.map(e=>{
                     return {
                         razon:e.razon,

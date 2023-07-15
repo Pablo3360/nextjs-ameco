@@ -27,7 +27,6 @@ export default function Affiliates(){
                 }
             }).then(res=>{
                 const data=res.data.data;
-                console.log('datax :',data)
                 const tableData=data.map(e=>{
                     return {
                         nombreCompleto: e.apellidos+', '+e.nombres,
