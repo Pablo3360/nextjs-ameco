@@ -1,9 +1,9 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  background-color: #f1f1f1;
-  width: 300px;
-  height: 90vh;
+  background-color: var(--white);
+  flex: 0 0 300px;
+  min-height: 86vh;
   padding: 20px;
 }  
 .link {

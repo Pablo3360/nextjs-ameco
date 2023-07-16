@@ -1,29 +1,22 @@
 .login{
     display: flex;
+    height: 100vh;
     justify-content: center;
     align-items: center;
-    background-color: #003dafda;
+    background-color: var(--darkblue);
     /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 }
-.modal{
-  /* z-index: -99!important;; */
-  /* background-color: #007bff; */
-  width: 400px;
-  height: 400px;
-}
+
 .contain{
     text-align: center;
     align-items: center;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    /* margin-top: 100px; */
-    border: 4px solid #007bff;
     background-color: white;
-    border-top: 0;
-    border-bottom: 0;
+    border-radius: 6px;
     width: 500px;
-    height: 100vh;
+    height: 85vh;
 }
 .inputs{
     margin-bottom: 100px;
@@ -70,7 +63,7 @@
     left: 0;
     height: 2px;
     width: 0;
-    background-color: #007bff;
+    background-color: var(--blue);
     transition: all 0.3s ease;
   }
   
@@ -78,7 +71,7 @@
   .inputField:focus + .inputLabel {
     top: -20px;
     font-size: 12px;
-    color: #007bff;
+    color: var(--blue);
   }
   
   .inputField:focus + .inputLabel + .inputHighlight {
@@ -93,7 +86,7 @@
     font-size: 1rem;
     width: 10em;
     border-radius: 1rem;
-    color:#007bff;
+    color:var(--blue);
     /* box-shadow: 0 0.4rem #dfd9d9; */
     cursor: pointer;
    }
@@ -105,7 +98,7 @@
    }
    
    .loginButton:hover:not(:disabled) {
-    background: #007bff;
+    background: var(--blue);
     color: white;
     /* text-shadow: 0 0.1rem #bcb4b4; */
    }

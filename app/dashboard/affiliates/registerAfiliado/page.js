@@ -6,8 +6,8 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 //import {useFormik } from 'formik';
-import EmpleadorForm from '../../../components/dashboard/empleador-form/empleador-form';
-import sendEmpleador  from './sendEmpleador';
+import AfiliadoForm from '@/components/dashboard/afiliado-form/afiliado-form';
+import sendData from './sendData'
 
 export default function RegisterAfiliado() {
   const router = useRouter();
@@ -21,19 +21,19 @@ export default function RegisterAfiliado() {
       return;
     } else {
       axios
-        .get(`${process.env.NEXT_PUBLIC_URL_API}/users?rol=recaudador`, {
+        .get(`${process.env.NEXT_PUBLIC_URL_API}/empleadores`, {
           headers: {
             Authorization: 'Bearer ' + user.user.token
           }
         })
         .then(res => {
           const data = res.data.data;
-          const recaudadores = data;
-          console.log(recaudadores)
-          setData(recaudadores);
+          const empleadores = data;
+          setData(empleadores);
         })
         .catch(err => {
           // alert error 401 --No autorizado o no logueado
+          console.log(err)
     Swal.fire({
       icon: 'error',
       title: 'No Tienes Autorizacion!',
@@ -53,7 +53,7 @@ export default function RegisterAfiliado() {
 
   const handleSubmit = async values => {
    
-    const response = await sendEmpleador(values, user);
+    const response = await sendData(values, user);
     //comentar el de arriba y descomentar el de abajo para pruebas sin guardar en BD
     //const response=values;
    
@@ -61,17 +61,26 @@ export default function RegisterAfiliado() {
 
     Swal.fire({
       title: 'ALTA CON EXITO!',
-      text: 'Has Dado de Alta un Nuevo Empleador',
+      text: 'Has Dado de Alta un Nuevo Afiliado',
       icon: 'success',
       showCancelButton: true,
-      confirmButtonText: 'Ir a Alta Afiliado',
+      confirmButtonText: 'Ir a la Ficha del Afiliado',
       cancelButtonText: 'Cerrar',
       cancelButtonColor: '##f8b7ba',
       confirmButtonColor: '#85b9f0', 
       
     }).then(result => {
       if (result.isConfirmed) {
-        window.location.replace('/dashboard/registerAfiliado');      
+        // ficha del afiliado
+        Swal.fire({
+          title: 'Ficha del Afiliado',
+          // text: Object.entries(values)
+          // .map(([key, value]) => `${key}: ${value}`)
+          // .join('\n'),
+          confirmButtonText: 'Cerrar',
+          confirmButtonColor: '#85b9f0', 
+        });
+      
      }      
      limpiarForm();      
     });    
@@ -80,7 +89,7 @@ export default function RegisterAfiliado() {
 
   return ( 
     <div>       
-    <EmpleadorForm 
+    <AfiliadoForm 
       data={data} 
       onSubmit={handleSubmit} 
       setLimpiarForm={setLimpiarForm}

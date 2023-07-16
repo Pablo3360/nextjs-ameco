@@ -1,0 +1,24 @@
+.container{
+    position: relative;
+    display: flex;
+    width: 12rem;
+    height: 3rem;
+    margin-bottom: 30px;
+  }
+.search{
+    outline: 0;
+    width: 100%;
+    height: 100%;
+    margin: 10px;
+    background: white;
+    padding: 0 1rem;
+    border-radius: 6px;
+    appearance: none;
+    position: relative;
+}
+.icon{
+    width: 25px;
+    position: absolute;
+    right: 20px;
+    top: 22px;
+}

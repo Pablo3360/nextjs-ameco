@@ -5,12 +5,12 @@ export default function DashboardLayout({
     children,
   }) {
     return (
-      <section>
+      <section className="section">
             <AuthProvider>
             <Header/>
             <div className="dashboard-layout">
               <Nav/>
-                <div className="body">
+                <div className="content">
                   {children}
                 </div>
             </div>

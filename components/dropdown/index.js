@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {dropdown,dropdownToggle,dropdownMenu} from './dropdown.module.css'
-const Dropdown = ({options}) => {
+
+const Dropdown = ({placeholder,options}) => {
   // const [selectedOption, setSelectedOption] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -12,8 +13,7 @@ const Dropdown = ({options}) => {
   return (
     <div className={dropdown}>
       <button className={dropdownToggle} onClick={() => setIsOpen(!isOpen)}>
-        {/* {selectedOption || 'seleccionar'} */}
-        seleccionar
+        {placeholder}
       </button>
       {isOpen && (
         <ul className={dropdownMenu}>

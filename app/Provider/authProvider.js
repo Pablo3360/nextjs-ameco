@@ -13,7 +13,7 @@ const AuthProvider = ({children})=>{
 
     let user = useSelector(state=>state.user)
 
-    console.log('user :',user)
+    console.log('user(Provider) :',user)
 
     useEffect(()=>{
         if (Object.keys(user).length===0){
