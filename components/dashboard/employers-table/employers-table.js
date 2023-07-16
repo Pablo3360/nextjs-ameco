@@ -1,10 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import styles from './affiliates-table.module.css'
+import styles from '../table.module.css'
 import {columns} from './columns'
 import Filter from './filter'
 import Actions from './actions'
+import SearchBar from '@/components/common/SearchBar/searchBar'
 import {
     useReactTable,
     flexRender,
@@ -40,13 +41,9 @@ export default function EmployersTable({data}) {
     )
     return (
     <div>
-        <input type="text"
-          value={filter} 
-          style={{"margin":"10px"}} 
-          placeholder='Busqueda general...'
-          onChange={(e)=>{
-            setFilter(e.target.value)
-          }} 
+        <SearchBar 
+          value={filter}
+          onChange = {(e)=>{setFilter(e.target.value)}}
         />
         <h1>({table.getFilteredRowModel().rows.length})</h1>
         <table className={styles.table}>
@@ -61,6 +58,16 @@ export default function EmployersTable({data}) {
                             header.getContext()
                         )
                     }
+                    </th>
+                ))}
+                </tr>
+            ))}
+            </thead>
+            <thead>
+            {table.getHeaderGroups().map(headerGroup => (
+                <tr key={headerGroup.id}>
+                {headerGroup.headers.map(header => (
+                    <th key={header.id} className={styles.headerCell}>
                    {
                     header.id==='recaudador'||header.id==='localidad'?
                     <Filter column={header.column} table={table} />:
@@ -129,9 +136,9 @@ export default function EmployersTable({data}) {
                 </button>
             </div>
         <span className="flex items-center gap-1">
-          <div>Page</div>
+          <span>Página  </span>
           <strong>
-            {table.getState().pagination.pageIndex + 1} of{' '}
+            {table.getState().pagination.pageIndex + 1} de{' '}
             {table.getPageCount()}
           </strong>
         </span>

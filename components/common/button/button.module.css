@@ -11,9 +11,9 @@
 }
 
  .alta {
-  background: #85b9f0;
+  background: var(--blue);
   font-size: 1rem;
- 
+  color:var(--white)
  }
 
  .volver{

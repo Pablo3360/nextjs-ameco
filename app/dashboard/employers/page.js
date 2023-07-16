@@ -6,9 +6,10 @@ import { handleLogOut } from '@/app/functions'
 import { useSelector,useDispatch } from 'react-redux'
 import { useState,useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import Title from '@/components/common/title/title'
+import Button from '@/components/common/button/button'
 import Loader from '@/components/common/pageLoader/loader'
 import axios from 'axios'
+import TitleBar from '@/components/common/TitleBar/TitleBar'
 
 export default function Employers() {
     const router=useRouter()
@@ -26,7 +27,6 @@ export default function Employers() {
                 }
             }).then(res=>{
                 const data=res.data.data;
-                console.log ('empleadores :',data)
                 const tableData=data.map(e=>{
                     return {
                         razon:e.razon,
@@ -45,10 +45,11 @@ export default function Employers() {
     },[token])
     return (
         <div>
-            <Title text='Tabla de empleadores'/>
-        <div style={{"margin":"40px"}}>
+        <TitleBar>
+            <h1>Tabla de empleadores</h1>
+            <Button text='alta' onClick={()=>router.push('./employers/registerEmpleador')}>Alta empleador</Button>
+        </TitleBar>
             {isLoading?<Loader/>:<EmployersTable data={data}/>}
-        </div>
         </div>
     )
 }

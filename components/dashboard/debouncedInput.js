@@ -1,4 +1,5 @@
 import { useState,useEffect } from "react";
+import styles from './debouncedInput.module.css'
 
 export default function DebouncedInput({
     value: initialValue,
@@ -20,6 +21,6 @@ export default function DebouncedInput({
     }, [value]);
   
     return (
-      <input {...props} value={value} onChange={(e) => setValue(e.target.value)} />
+      <input {...props} value={value} onChange={(e) => setValue(e.target.value)} className={styles.input}/>
     );
 }

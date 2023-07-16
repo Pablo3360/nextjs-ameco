@@ -7,7 +7,7 @@ import {
     flexRender,
     getCoreRowModel,
 } from '@tanstack/react-table'
-import styles from './participantes-table.module.css'
+import styles from '../table.module.css'
 
 export default function ParticipantesTable({data}) {
     const table = useReactTable({

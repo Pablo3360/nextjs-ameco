@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import Link from 'next/link';
 import Button from '../../common/button/button.js';
-import Title from '@/components/common/title/title.js';
+import TitleBar from '@/components/common/TitleBar/TitleBar.js';
 import styles from '../../common/form/form.module.css'; //css para todos los formularios
 
 export default function EmpleadorForm({data,onSubmit, setLimpiarForm }) {
@@ -30,7 +30,9 @@ export default function EmpleadorForm({data,onSubmit, setLimpiarForm }) {
 
   return (
   <div>        
-  <Title text="Alta Empleador"></Title>
+  <TitleBar>
+    <h1>Alta empleador</h1>
+  </TitleBar>
   <form className={styles.container} onSubmit={formik.handleSubmit}>
     <div className={styles.formContainer}>
       <label htmlFor="razon">Razon Social: </label>
