@@ -12,15 +12,17 @@ export default function RegisterParticipante() {
   const router = useRouter();
   const [data, setData] = useState([]);
   let user = useSelector(state => state.user);
+  const affiliateData = useSelector((state)=> state.afiliado)
+ // console.log("afiliado : " +affiliateData.afiliado.id)
   const [limpiarForm, setLimpiarForm] = useState(() => () => {});
 //traer data Afiliado Titular
- const affiliateId = localStorage.getItem('affiliateId');
- const Affiliatenombre = localStorage.getItem('nombreAfiliado');
-const Affiliateapellido = localStorage.getItem('apellidoAfiliado');
+ const affiliateId = affiliateData.afiliado.id;
+ const Affiliatenombre = affiliateData.afiliado.nombres;
+const Affiliateapellido = affiliateData.afiliado.apellidos;
  
  
   const handleSubmit = async values => {   
-    console.log(values)
+   // console.log(values)
     try{
     const response = await sendParticipante(values, user);
     //comentar el de arriba y descomentar el de abajo para pruebas sin guardar en BD

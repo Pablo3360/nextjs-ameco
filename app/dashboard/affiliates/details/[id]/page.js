@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import { useSelector , useDispatch } from "react-redux"
 import { useState } from "react"
+import { setAfiliado } from "@/app/store/afiliado/afiliadoSlice"
 import AffiliateInfo from "@/components/dashboard/affiliate-details/affiliate-details"
 import ParticipantesTable from "@/components/dashboard/participantes-table/participantes-table"
 import Title from "@/components/common/title/title"
@@ -16,7 +17,6 @@ import styles from './page.module.css'
 
 export default function AffiliateDetails({params}) {
     const user = useSelector(state=>state.user.user)
-    
     const router=useRouter()
     const dispatch=useDispatch()
     let token=user?.token
@@ -41,10 +41,9 @@ export default function AffiliateDetails({params}) {
     },[token])
 
     const handleClick = (e) => {
-        console.log(affiliateData.id)
-       localStorage.setItem('affiliateId', affiliateData.id);   
-       localStorage.setItem('nombreAfiliado', affiliateData.nombres);
-       localStorage.setItem('apellidoAfiliado', affiliateData.apellidos); 
+       
+        console.log("Afiliado al hacer click: " + affiliateData.id + affiliateData.nombres + affiliateData.apellidos) 
+        dispatch(setAfiliado(affiliateData))
        router.push('/dashboard/affiliates/registerParticipante');
       }
 
@@ -62,7 +61,7 @@ export default function AffiliateDetails({params}) {
                 <AffiliateInfo affiliateData={affiliateData}/>
                 <div className={styles.separador}>
                     <h1 className={styles.h1}>Participantes</h1>
-                    <Button text="alta" onClick={() => handleClick(affiliateData.id)}>Alta participante</Button>
+                    <Button text="alta" onClick={handleClick}>Alta participante</Button>
                 </div>
             </div>
         }     
