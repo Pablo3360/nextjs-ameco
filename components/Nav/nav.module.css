@@ -1,0 +1,22 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  flex: 0 0 300px;
+  min-height: 86vh;
+  padding: 20px;
+}  
+.link {
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+}
+.link:hover {
+  background-color: #c0c0c0;
+}

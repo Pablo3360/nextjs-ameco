@@ -1,0 +1,33 @@
+:root {
+  --blue: #276E90;
+  --darkblue:#0a3143;
+  --white: #EFEFEF;
+  --grey: #CECFC9;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html{
+  overflow-y:scroll;
+}
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+section{
+  min-height: 99vh;
+}
+.dashboard-layout{
+  display: flex;
+  /* min-height: 89vh; */
+  margin: 0;
+  padding: 0;
+}
+.content{
+  flex: 1;
+  margin: 50px;
+}

@@ -1,0 +1,66 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    border: 1px solid;
+    overflow: hidden;
+}
+
+.headerCell {
+    background: var(--grey);
+    padding: 10px;
+    border: 1px solid grey;
+    font-weight: bold;
+    text-align: left;
+}
+
+.cell {
+    background: var(--white);
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.buttons{
+    width: fit-content;
+    margin: auto;
+    margin-top: 20px;
+}
+.buttons>button {
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    outline: none;
+    width: 50px;
+    height: 30px;
+    margin: 1px;
+    border-radius: 4px;
+    font-size: larger;
+  }
+  .buttons>button:hover {
+    background-color: #c0c0c0;
+  }
+  .container{
+    position: relative;
+    display: flex;
+    width: 12rem;
+    height: 3rem;
+    margin: 10px;
+  }
+  .search{
+    outline: 0;
+    width: 100%;
+    height: 100%;
+    margin: 10px;
+    background: white;
+    padding: 0 1rem;
+    border-radius: 6px;
+    appearance: none;
+    position: relative;
+  }
+  .icon{
+    width: 25px;
+    position: absolute;
+    right: 15px;
+    top: 20px;
+  }

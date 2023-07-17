@@ -1,0 +1,16 @@
+.afiliado {
+    display: flex;
+    padding: 20px;
+    border-bottom: 2px solid grey;
+}
+.afiliado>div{
+    margin: 0 20px;
+    padding: 10px;
+}
+.afiliado>div>p {
+    margin-bottom: 20px;
+}
+.empleador{
+    background-color: rgb(185, 185, 185);
+    border-radius: 6px;
+}
