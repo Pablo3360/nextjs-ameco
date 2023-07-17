@@ -30,8 +30,7 @@ export default function RegisterParticipante() {
     }).then((result) => {
       if (result.isConfirmed) {
         // redirige al detalle del afiliado titular
-       //router.push('/dashboard/affiliates/details/' + affiliateId)
-       router.back();
+        router.back();
       }else{
         Swal.fire({
           title: 'HA OCURRIDO UN ERROR!',
