@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-//import {useFormik } from 'formik';
 import AfiliadoForm from '@/components/dashboard/afiliado-form/afiliado-form';
 import sendData from './sendData'
 
@@ -42,7 +41,7 @@ export default function RegisterAfiliado() {
       confirmButtonColor: '#85b9f0',  
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.replace('/dashboard')   
+        router.push('/dashboard')   
       }
     })
     });
@@ -56,7 +55,6 @@ export default function RegisterAfiliado() {
     const response = await sendData(values, user);
     //comentar el de arriba y descomentar el de abajo para pruebas sin guardar en BD
     //const response=values;
-   
     if (response) {
 
     Swal.fire({
@@ -71,12 +69,10 @@ export default function RegisterAfiliado() {
       
     }).then(result => {
       if (result.isConfirmed) {
-        // ficha del afiliado
+      
         Swal.fire({
           title: 'Ficha del Afiliado',
-          // text: Object.entries(values)
-          // .map(([key, value]) => `${key}: ${value}`)
-          // .join('\n'),
+            // ficha del afiliado
           confirmButtonText: 'Cerrar',
           confirmButtonColor: '#85b9f0', 
         });

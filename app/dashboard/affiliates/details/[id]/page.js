@@ -1,16 +1,18 @@
 'use client'
-
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import { useSelector , useDispatch } from "react-redux"
 import { useState } from "react"
+import { setAfiliado } from "@/app/store/afiliado/afiliadoSlice"
 import AffiliateInfo from "@/components/dashboard/affiliate-details/affiliate-details"
 import ParticipantesTable from "@/components/dashboard/participantes-table/participantes-table"
+import RegisterParticipante from "../../registerParticipante/page"
 import TitleBar from "@/components/common/TitleBar/TitleBar"
 import Button from "@/components/common/button/button"
 import Loader from "@/components/common/pageLoader/loader"
 import { handleLogOut } from "@/app/functions"
+import RegisterAfiliado from "../../registerAfiliado/page"
 
 export default function AffiliateDetails({params}) {
     const user = useSelector(state=>state.user.user)
@@ -36,6 +38,13 @@ export default function AffiliateDetails({params}) {
         }
     },[token])
 
+    const handleClick = (e) => {       
+        //ir a RegisterParticpante y pasarle affiliateData   
+        //console.log("afiliado pasado desde Detail: "+affiliateData)
+        dispatch(setAfiliado(affiliateData))
+        router.push('/dashboard/affiliates/registerParticipante')    
+    } 
+
     return (
     <div>
         <TitleBar>
@@ -48,7 +57,7 @@ export default function AffiliateDetails({params}) {
                 <AffiliateInfo affiliateData={affiliateData}/>
                 <TitleBar>
                     <h1>Participantes</h1>
-                    <Button text="alta">Alta participante</Button>
+                    <Button text="alta" onClick={handleClick}>Alta participante</Button>     
                 </TitleBar>
             </div>
         }     

@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-//import {useFormik } from 'formik';
 import EmpleadorForm from '@/components/dashboard/empleador-form/empleador-form';
 import sendEmpleador  from './sendEmpleador';
 
@@ -42,23 +41,18 @@ export default function RegisterAfiliado() {
       confirmButtonColor: '#85b9f0',  
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.replace('/dashboard')   
+        router.push('/dashboard')   
       }
     })
     });
     }
-  }, []); 
+  }, []);   
 
-  
-
-  const handleSubmit = async values => {
-   
-    const response = await sendEmpleador(values, user);
+  const handleSubmit = async values => {   
+    //const response = await sendEmpleador(values, user);
     //comentar el de arriba y descomentar el de abajo para pruebas sin guardar en BD
-    //const response=values;
-   
+    const response=values;   
     if (response) {
-
     Swal.fire({
       title: 'ALTA CON EXITO!',
       text: 'Has Dado de Alta un Nuevo Empleador',
@@ -71,7 +65,7 @@ export default function RegisterAfiliado() {
       
     }).then(result => {
       if (result.isConfirmed) {
-        window.location.replace('/dashboard/registerAfiliado');      
+        router.push('/dashboard/affiliates/registerAfiliado');      
      }      
      limpiarForm();      
     });    
